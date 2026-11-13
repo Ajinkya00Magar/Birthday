@@ -2010,8 +2010,60 @@ a {
    BIRTHDAY CAKE & CANDLE BLOWING
    ========================================================= */
 .birthday-cake-section {
+  width: 100%;
   position: relative;
-  overflow: hidden;
+  background-color: #ffdce5;
+  background-image:
+    radial-gradient(circle at 10% 15%, rgba(255, 111, 89, 0.4) 0 6px, transparent 7px),
+    radial-gradient(circle at 55% 6%, rgba(47, 191, 176, 0.38) 0 5px, transparent 6px),
+    radial-gradient(circle at 85% 20%, rgba(255, 226, 160, 0.45) 0 7px, transparent 8px),
+    radial-gradient(circle at 25% 40%, rgba(255, 76, 129, 0.4) 0 5px, transparent 6px),
+    radial-gradient(circle at 70% 48%, rgba(255, 226, 160, 0.3) 0 4px, transparent 5px),
+    radial-gradient(circle at 95% 62%, rgba(47, 191, 176, 0.38) 0 6px, transparent 7px),
+    radial-gradient(circle at 12% 70%, rgba(255, 226, 160, 0.4) 0 5px, transparent 6px),
+    radial-gradient(circle at 45% 82%, rgba(255, 76, 129, 0.38) 0 7px, transparent 8px),
+    radial-gradient(circle at 78% 92%, rgba(255, 111, 89, 0.4) 0 5px, transparent 6px),
+    radial-gradient(circle at 4% 95%, rgba(38, 50, 74, 0.2) 0 4px, transparent 5px);
+  background-size: 300px 300px;
+  background-repeat: repeat;
+  padding: 80px 20px 96px;
+  box-sizing: border-box;
+}
+
+.birthday-cake-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.cake-stage {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.cake-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  user-select: none;
+  padding-top: 12px;
+}
+
+.center-candle-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: -5px;
+  z-index: 25;
+  position: relative;
 }
 
 .big-candle-btn {
@@ -2019,36 +2071,36 @@ a {
   border: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.big-candle-stick {
-  width: 24px;
-  height: 68px;
-  border: 3.5px solid var(--color-ink);
-  border-radius: 6px 6px 3px 3px;
-  background: repeating-linear-gradient(
-    -45deg,
-    #ff477e,
-    #ff477e 8px,
-    #fff5f7 8px,
-    #fff5f7 16px
-  );
-  box-shadow: 2px 2px 0 var(--color-ink);
+.big-candle-btn:hover {
+  transform: scale(1.08);
+}
+
+.big-candle-btn:active {
+  transform: scale(0.96);
+}
+
+.flame-holder {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: relative;
-  transition: opacity 0.3s ease, filter 0.3s ease;
-}
-
-.big-candle-btn.is-blown .big-candle-stick {
-  opacity: 0.85;
-  filter: grayscale(0.3);
 }
 
 .candle-flame {
-  width: 20px;
-  height: 30px;
+  width: 22px;
+  height: 32px;
   background: linear-gradient(to bottom, #fff700 0%, #ff8800 65%, #ff3b00 100%);
   border-radius: 50% 50% 35% 35% / 60% 60% 40% 40%;
-  box-shadow: 0 0 16px 4px rgba(255, 170, 0, 0.85), 0 0 32px 8px rgba(255, 100, 0, 0.45);
+  box-shadow: 0 0 16px 5px rgba(255, 170, 0, 0.85), 0 0 32px 10px rgba(255, 100, 0, 0.45);
   animation: flame-dance 0.75s ease-in-out infinite alternate;
   transform-origin: 50% 90%;
   position: relative;
@@ -2066,6 +2118,43 @@ a {
   opacity: 0.95;
 }
 
+.candle-wick {
+  width: 3.5px;
+  height: 10px;
+  background: var(--color-ink);
+  border-radius: 2px;
+  margin-top: -3px;
+  z-index: 10;
+}
+
+.big-candle-stick {
+  width: 24px;
+  height: 66px;
+  border: 3.5px solid var(--color-ink);
+  border-radius: 6px 6px 3px 3px;
+  background: repeating-linear-gradient(
+    -45deg,
+    #ff477e,
+    #ff477e 8px,
+    #fff5f7 8px,
+    #fff5f7 16px
+  );
+  box-shadow: 2.5px 2.5px 0 var(--color-ink);
+  position: relative;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+.big-candle-btn.is-blown .big-candle-stick {
+  opacity: 0.85;
+  filter: grayscale(0.35);
+}
+
+.smoke-puff {
+  font-size: 1.6rem;
+  line-height: 1;
+  animation: smoke-float 1.2s ease-out forwards;
+}
+
 @keyframes flame-dance {
   0% {
     transform: scale(1) rotate(-3deg);
@@ -2078,11 +2167,6 @@ a {
     transform: scale(0.95, 1.06) rotate(-2deg);
     box-shadow: 0 0 18px 5px rgba(255, 190, 0, 0.9), 0 0 34px 10px rgba(255, 110, 0, 0.5);
   }
-}
-
-.smoke-puff {
-  font-size: 1.4rem;
-  animation: smoke-float 1.2s ease-out forwards;
 }
 
 @keyframes smoke-float {
@@ -2100,8 +2184,267 @@ a {
   }
 }
 
+/* Tier 1 (Top Layer) */
+.cake-tier-top {
+  width: 240px;
+  height: 84px;
+  margin: 0 auto;
+  border-radius: 20px 20px 0 0;
+  border: 4px solid var(--color-ink);
+  background: linear-gradient(180deg, #ffe5ec 0%, #ffb3c1 100%);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.frosting-drips-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 24px;
+  display: flex;
+  justify-content: space-around;
+  pointer-events: none;
+}
+
+.drip {
+  background: #ffffff;
+  border-bottom: 3.5px solid var(--color-ink);
+  border-left: 3.5px solid var(--color-ink);
+  border-right: 3.5px solid var(--color-ink);
+  border-radius: 0 0 12px 12px;
+}
+
+.drip--1 { width: 34px; height: 22px; }
+.drip--2 { width: 28px; height: 16px; }
+.drip--3 { width: 38px; height: 25px; }
+.drip--4 { width: 30px; height: 18px; }
+.drip--5 { width: 34px; height: 22px; }
+
+.strawberry {
+  font-size: 26px;
+  line-height: 1;
+  user-select: none;
+  z-index: 5;
+}
+
+.strawberry--left {
+  transform: rotate(-12deg);
+}
+
+.strawberry--right {
+  transform: rotate(12deg);
+}
+
+.tier-sprinkles-center {
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+}
+
+/* Tier 2 (Bottom Layer) */
+.cake-tier-bottom {
+  width: 320px;
+  height: 104px;
+  margin: 0 auto;
+  border-radius: 20px 20px 0 0;
+  border: 4px solid var(--color-ink);
+  border-top: none;
+  background: linear-gradient(180deg, #ffd3b6 0%, #ffaaa5 100%);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+  position: relative;
+  overflow: hidden;
+  z-index: 5;
+  box-sizing: border-box;
+}
+
+.frosting-drips-bottom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 28px;
+  display: flex;
+  justify-content: space-around;
+  pointer-events: none;
+}
+
+.drip--b1 { width: 36px; height: 24px; }
+.drip--b2 { width: 30px; height: 17px; }
+.drip--b3 { width: 42px; height: 27px; }
+.drip--b4 { width: 32px; height: 18px; }
+.drip--b5 { width: 38px; height: 25px; }
+.drip--b6 { width: 28px; height: 15px; }
+
+.cake-sprinkles-wrap {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 16px;
+  pointer-events: none;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.dot--pink { background: #ff477e; }
+.dot--yellow { background: #ffb347; }
+.dot--teal { background: #2ec4b6; }
+.dot--blue { background: #3a86ff; }
+
+.pill {
+  width: 14px;
+  height: 6px;
+  border-radius: 4px;
+}
+
+.pill--teal { background: #2ec4b6; transform: rotate(45deg); }
+.pill--purple { background: #845ec2; transform: rotate(-15deg); }
+.pill--coral { background: #ff6f59; transform: rotate(30deg); }
+
+.cake-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.95);
+  border: 2.5px solid var(--color-ink);
+  border-radius: 9999px;
+  padding: 4px 18px;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--color-ink);
+  white-space: nowrap;
+  box-shadow: 2px 2px 0 var(--color-ink);
+  user-select: none;
+}
+
+/* Stand / Plate */
+.cake-stand {
+  width: 350px;
+  height: 22px;
+  margin: -2px auto 0;
+  background: linear-gradient(90deg, #ebebeb 0%, #ffffff 50%, #ebebeb 100%);
+  border: 4px solid var(--color-ink);
+  border-radius: 9999px;
+  box-shadow: var(--shadow-sticker);
+  position: relative;
+  z-index: 10;
+  box-sizing: border-box;
+}
+
+.cake-pedestal {
+  width: 130px;
+  height: 18px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 4px solid var(--color-ink);
+  border-top: none;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 3px 0 var(--color-ink);
+  box-sizing: border-box;
+}
+
+/* Cake Actions */
+.cake-actions {
+  margin-top: 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.cake-blow-btn,
+.cake-relight-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow: var(--shadow-sticker);
+}
+
+.cake-relight-btn {
+  background: #ffffff;
+  border: 3px solid var(--color-ink);
+  color: var(--color-ink);
+}
+
+.btn-icon {
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.cake-hint-text {
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--color-ink-soft);
+  margin-top: 4px;
+  text-align: center;
+}
+
+/* Wish Granted Card */
 .wish-granted-card {
+  margin-top: 32px;
+  max-width: 520px;
+  width: 100%;
+  background: var(--color-paper);
+  border: 4px solid var(--color-ink);
+  border-radius: 24px;
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sticker-lg);
+  text-align: center;
   animation: card-pop-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  box-sizing: border-box;
+}
+
+.wish-card-icons {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+.wish-card-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.8rem;
+  color: var(--color-ink);
+  margin-bottom: 10px;
+}
+
+.wish-card-message {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: var(--color-ink);
+  margin-bottom: 16px;
+}
+
+.wish-card-love {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--color-coral-text);
 }
 
 @keyframes card-pop-in {
@@ -2112,6 +2455,39 @@ a {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+  .cake-tier-top {
+    width: 210px;
+    height: 74px;
+  }
+  .cake-tier-bottom {
+    width: 280px;
+    height: 92px;
+  }
+  .cake-stand {
+    width: 300px;
+    height: 18px;
+  }
+  .cake-pedestal {
+    width: 110px;
+    height: 15px;
+  }
+  .cake-badge {
+    font-size: 13px;
+    padding: 3px 14px;
+    bottom: 8px;
+  }
+  .strawberry {
+    font-size: 22px;
+  }
+  .cake-blow-btn,
+  .cake-relight-btn {
+    font-size: 0.98rem;
+    padding: 12px 22px;
   }
 }
 
