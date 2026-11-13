@@ -342,10 +342,10 @@ export const content = {
   albumRailTracks: [
     {
       id: "track-1",
-      title: "Cafe & Deep Thoughts",
-      artist: "Yogi",
+      title: "Happy Birthday Yogi (Whistle Snap)",
+      artist: "Theme Stars",
       coverSrc: "/photos/track-yogi-cafe.jpeg",
-      audioSrc: "/songs/track1.mp3",
+      audioSrc: "/songs/Theme Stars - Happy Birthday to You (Whistle Snap).mp3",
     },
     {
       id: "track-2",
@@ -404,8 +404,8 @@ export const content = {
   replayLabel: "Watch our little surprise again",
 
   // --- Background music ---
-  songUrl: "" as string,
-  songTitle: "" as string,
+  songUrl: "/songs/Theme Stars - Happy Birthday to You (Whistle Snap).mp3" as string,
+  songTitle: "Happy Birthday to You (Whistle Snap)" as string,
 };
 
 export type Content = typeof content;

@@ -16,6 +16,7 @@ import Appreciation from "@/components/Appreciation";
 import MoreMemories from "@/components/MoreMemories";
 import SoundtrackRail from "@/components/SoundtrackRail";
 import Wishes from "@/components/Wishes";
+import BirthdayCake from "@/components/BirthdayCake";
 import Surprise from "@/components/Surprise";
 import Closing from "@/components/Closing";
 import MusicPlayer from "@/components/MusicPlayer";
@@ -146,6 +147,8 @@ export default function Home() {
           intro={content.wishesIntro}
           wishes={content.wishes}
         />
+
+        <BirthdayCake recipientName={content.displayName} />
 
         <Surprise
           eyebrow={content.surpriseEyebrow}

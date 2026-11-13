@@ -1,30 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Baloo_2, Nunito, Kalam } from "next/font/google";
 import { content } from "@/data/content";
 import SmoothScroll from "@/components/SmoothScroll";
 import CursorTrail from "@/components/CursorTrail";
 import "./globals.css";
-
-const display = Baloo_2({
-  subsets: ["latin"],
-  weight: ["600", "700", "800"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const body = Nunito({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-body",
-  display: "swap",
-});
-
-const handwriting = Kalam({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-hand",
-  display: "swap",
-});
 
 const title = `Happy Birthday, ${content.displayName}! 🎂`;
 const description = "For our Yogi — from Ajinkya, Rutvik, Dipika, Pranav & Omkar 💛";
@@ -59,7 +37,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${display.variable} ${body.variable} ${handwriting.variable}`}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Kalam:wght@400;700&family=Nunito:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body>
         <SmoothScroll />
         <CursorTrail />
         {children}
