@@ -35,10 +35,23 @@ export default function MusicPlayer({
 
     if (shouldPlay) {
       if (!userManuallyPausedRef.current) {
+        const applyTime = () => {
+          try {
+            if (audio.currentTime === 0) {
+              audio.currentTime = 20;
+            }
+          } catch {}
+        };
+        if (audio.readyState >= 1) {
+          applyTime();
+        } else {
+          audio.addEventListener("loadedmetadata", applyTime, { once: true });
+        }
         audio
           .play()
           .then(() => {
             setIsPlaying(true);
+            applyTime();
           })
           .catch((err) => {
             console.warn("Autoplay deferred or blocked:", err);
@@ -140,6 +153,12 @@ export default function MusicPlayer({
           } else {
             window.dispatchEvent(new CustomEvent("pause-rail-music"));
             userManuallyPausedRef.current = false;
+            const audio = audioRef.current;
+            if (audio && (audio.currentTime === 0 || audio.currentTime < 20)) {
+              try {
+                audio.currentTime = 20;
+              } catch {}
+            }
             setIsPlaying(true);
           }
           dismissHint();

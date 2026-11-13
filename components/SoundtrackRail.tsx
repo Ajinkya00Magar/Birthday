@@ -38,6 +38,44 @@ export default function SoundtrackRail({
     const audio = audioRef.current;
     if (!audio) return;
 
+    const startSec = track.startTime ?? 20;
+
+    const applyStartTime = () => {
+      try {
+        if (audio.currentTime < startSec) {
+          audio.currentTime = startSec;
+        }
+      } catch {}
+    };
+
+    const playAudio = (source: string) => {
+      audio.src = source;
+      if (audio.readyState >= 1) {
+        applyStartTime();
+      } else {
+        audio.addEventListener("loadedmetadata", applyStartTime, { once: true });
+      }
+
+      audio
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+          applyStartTime();
+        })
+        .catch(() => {
+          const fallback = track.audioSrc.includes(".mpeg")
+            ? encodeURI(track.audioSrc.replace(/\.mpeg$/i, ".mp3"))
+            : track.audioSrc.includes("WhatsApp")
+            ? `/songs/track${index + 1}.mp3`
+            : null;
+          if (fallback && fallback !== source) {
+            playAudio(fallback);
+          } else {
+            setIsPlaying(false);
+          }
+        });
+    };
+
     if (activeIndex === index) {
       // Toggle play/pause for the currently selected track
       if (isPlaying) {
@@ -48,25 +86,16 @@ export default function SoundtrackRail({
           window.dispatchEvent(new CustomEvent("pause-bg-music"));
           const targetSrc = encodeURI(track.audioSrc);
           if (!audio.src || !audio.src.includes(encodeURIComponent(track.audioSrc.replace(/^\//, "")))) {
-            audio.src = targetSrc;
+            playAudio(targetSrc);
+          } else {
+            if (audio.currentTime === 0 || audio.currentTime < startSec) {
+              applyStartTime();
+            }
+            audio
+              .play()
+              .then(() => setIsPlaying(true))
+              .catch(() => playAudio(targetSrc));
           }
-          audio
-            .play()
-            .then(() => setIsPlaying(true))
-            .catch(() => {
-              // Try fallback if primary format had issues
-              const fallback = track.audioSrc.includes(".mpeg")
-                ? encodeURI(track.audioSrc.replace(/\.mpeg$/i, ".mp3"))
-                : track.audioSrc.includes("WhatsApp")
-                ? `/songs/track${index + 1}.mp3`
-                : null;
-              if (fallback) {
-                audio.src = fallback;
-                audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-              } else {
-                setIsPlaying(false);
-              }
-            });
         }
       }
       return;
@@ -79,23 +108,7 @@ export default function SoundtrackRail({
     setIsPlaying(false);
 
     if (track.audioSrc) {
-      audio.src = encodeURI(track.audioSrc);
-      audio
-        .play()
-        .then(() => setIsPlaying(true))
-        .catch(() => {
-          const fallback = track.audioSrc.includes(".mpeg")
-            ? encodeURI(track.audioSrc.replace(/\.mpeg$/i, ".mp3"))
-            : track.audioSrc.includes("WhatsApp")
-            ? `/songs/track${index + 1}.mp3`
-            : null;
-          if (fallback) {
-            audio.src = fallback;
-            audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
-          } else {
-            setIsPlaying(false);
-          }
-        });
+      playAudio(encodeURI(track.audioSrc));
     }
   };
 
