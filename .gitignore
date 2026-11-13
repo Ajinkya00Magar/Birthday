@@ -2,6 +2,9 @@ node_modules
 .next
 out
 .env*.local
+.env
+.env.local
+yogi/
 npm-debug.log*
 *.tsbuildinfo
 .DS_Store

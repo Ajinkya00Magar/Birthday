@@ -28,6 +28,14 @@ export type Letter = {
   closing: string;
 };
 
+export type AlbumTrack = {
+  id: string;
+  title: string;
+  artist: string;
+  coverSrc: string;
+  audioSrc: string;
+};
+
 export const content = {
   // --- Identity ---
   recipientName: "Yogeshwari Thombare",
@@ -262,6 +270,50 @@ export const content = {
     "May you never lose your kindness, your humour, your grounded nature or that wonderfully energetic Yogi personality.",
     "And selfishly, may we get many more years of your friendship, your random conversations and your very necessary presence in our chaos.",
   ] as string[],
+
+  // --- Album Rail / Soundtrack ---
+  // Paste your downloaded mp3 files into /public/songs/ or /public/music/
+  albumRailEyebrow: "Our Vibe & Soundtrack",
+  albumRailTitle: "Yogi's Album Rail",
+  albumRailSubtitle:
+    "A fan of record sleeves with vinyl tucked inside. Tap or hover an album to slide the vinyl out and play the track.",
+  albumRailTracks: [
+    {
+      id: "track-1",
+      title: "Memories at Umiya",
+      artist: "The Crew",
+      coverSrc: "/photos/yogi-portrait.png",
+      audioSrc: "/songs/track1.mp3",
+    },
+    {
+      id: "track-2",
+      title: "Late Night Project Chaos",
+      artist: "SIH Team",
+      coverSrc: "/photos/office-selfie.jpeg",
+      audioSrc: "/songs/track2.mp3",
+    },
+    {
+      id: "track-3",
+      title: "Roadside & Peace Signs",
+      artist: "Ajinkya & Yogi",
+      coverSrc: "/photos/roadside-selfie.jpeg",
+      audioSrc: "/songs/track3.mp3",
+    },
+    {
+      id: "track-4",
+      title: "Trophy & Certificates",
+      artist: "The Whole Gang",
+      coverSrc: "/photos/team-certificates.jpeg",
+      audioSrc: "/songs/track4.mp3",
+    },
+    {
+      id: "track-5",
+      title: "Under The Warm Lights",
+      artist: "Friends Forever",
+      coverSrc: "/photos/warm-lights-team.jpeg",
+      audioSrc: "/songs/track5.mp3",
+    },
+  ] as AlbumTrack[],
 
   // --- Surprise section ---
   surpriseEyebrow: "One last thing (okay, maybe three)",

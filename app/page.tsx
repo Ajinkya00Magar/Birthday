@@ -14,6 +14,7 @@ import Gallery from "@/components/Gallery";
 import Timeline from "@/components/Timeline";
 import Appreciation from "@/components/Appreciation";
 import MoreMemories from "@/components/MoreMemories";
+import SoundtrackRail from "@/components/SoundtrackRail";
 import Wishes from "@/components/Wishes";
 import Surprise from "@/components/Surprise";
 import Closing from "@/components/Closing";
@@ -121,6 +122,13 @@ export default function Home() {
           title={content.memoriesTitle}
           subtitle={content.memoriesSubtitle}
           items={content.memoryItems}
+        />
+
+        <SoundtrackRail
+          eyebrow={content.albumRailEyebrow}
+          title={content.albumRailTitle}
+          subtitle={content.albumRailSubtitle}
+          tracks={content.albumRailTracks}
         />
 
         <Wishes
