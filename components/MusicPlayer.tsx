@@ -9,9 +9,16 @@ type MusicPlayerProps = {
   songTitle: string;
   /** Set true right when the gift opens, to prompt the visitor to hit play. */
   showHint?: boolean;
+  /** Triggered right after visitor clicks "Open your surprise" */
+  shouldPlay?: boolean;
 };
 
-export default function MusicPlayer({ songUrl, songTitle, showHint = false }: MusicPlayerProps) {
+export default function MusicPlayer({
+  songUrl,
+  songTitle,
+  showHint = false,
+  shouldPlay = false,
+}: MusicPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const hintRef = useRef<HTMLDivElement>(null);
   const userManuallyPausedRef = useRef<boolean>(false);
@@ -21,47 +28,28 @@ export default function MusicPlayer({ songUrl, songTitle, showHint = false }: Mu
   const [hintVisible, setHintVisible] = useState<boolean>(false);
   const hasSong = Boolean(songUrl);
 
-  // Autostart BGM from the very start, with seamless user-gesture fallback for strict browsers
+  // Start music right after the user clicks "Open your surprise"
   useEffect(() => {
-    if (!hasSong) return;
     const audio = audioRef.current;
-    if (!audio) return;
+    if (!audio || !hasSong) return;
 
-    let hasStarted = false;
-
-    const startAudio = () => {
-      if (userManuallyPausedRef.current || hasStarted) return;
-      audio
-        .play()
-        .then(() => {
-          hasStarted = true;
-          setIsPlaying(true);
-          cleanupGestureListeners();
-        })
-        .catch(() => {
-          // Autoplay blocked by browser until user touches or clicks the screen
-        });
-    };
-
-    // 1. Try immediate autoplay on page load/mount
-    startAudio();
-
-    // 2. Global listener on the starting screens (PIN entry, gift opening, or first screen tap)
-    const gestureEvents = ["pointerdown", "touchstart", "click", "keydown"];
-    const handleGesture = () => {
-      startAudio();
-    };
-
-    const cleanupGestureListeners = () => {
-      gestureEvents.forEach((ev) => window.removeEventListener(ev, handleGesture));
-    };
-
-    gestureEvents.forEach((ev) => window.addEventListener(ev, handleGesture, { passive: true }));
-
-    return () => {
-      cleanupGestureListeners();
-    };
-  }, [hasSong, songUrl]);
+    if (shouldPlay) {
+      if (!userManuallyPausedRef.current) {
+        audio
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((err) => {
+            console.warn("Autoplay deferred or blocked:", err);
+          });
+      }
+    } else {
+      audio.pause();
+      setIsPlaying(false);
+      userManuallyPausedRef.current = false;
+    }
+  }, [shouldPlay, hasSong]);
 
   useEffect(() => {
     const audio = audioRef.current;

@@ -26,6 +26,7 @@ type Stage = "loading" | "locked" | "intro" | "main";
 export default function Home() {
   const [stage, setStage] = useState<Stage>("loading");
   const [showMusicHint, setShowMusicHint] = useState(false);
+  const [shouldPlayMusic, setShouldPlayMusic] = useState(false);
   const nextAfterLoading = useRef<"locked" | "intro">(content.accessPin ? "locked" : "intro");
 
   const handleLoadingDone = () => setStage(nextAfterLoading.current);
@@ -34,14 +35,20 @@ export default function Home() {
     setStage("intro");
   };
 
+  const handleOpenStart = () => {
+    setShouldPlayMusic(true);
+  };
+
   const handleOpened = () => {
     setStage("main");
     setShowMusicHint(true);
+    setShouldPlayMusic(true);
   };
 
   const handleReplay = () => {
     setStage("intro");
     setShowMusicHint(false);
+    setShouldPlayMusic(false);
     const lenis = getLenis();
     if (lenis) {
       lenis.scrollTo(0, { immediate: true });
@@ -72,7 +79,9 @@ export default function Home() {
             />
           ) : null}
 
-          {stage === "intro" ? <IntroScreen onOpened={handleOpened} /> : null}
+          {stage === "intro" ? (
+            <IntroScreen onOpened={handleOpened} onOpenStart={handleOpenStart} />
+          ) : null}
         </StageTransition>
       ) : null}
 
@@ -170,7 +179,12 @@ export default function Home() {
         />
       </main>
 
-      <MusicPlayer songUrl={content.songUrl} songTitle={content.songTitle} showHint={showMusicHint} />
+      <MusicPlayer
+        songUrl={content.songUrl}
+        songTitle={content.songTitle}
+        showHint={showMusicHint}
+        shouldPlay={shouldPlayMusic}
+      />
     </>
   );
 }

@@ -9,11 +9,12 @@ import { content } from "@/data/content";
 
 type IntroScreenProps = {
   onOpened: () => void;
+  onOpenStart?: () => void;
 };
 
 const BURST_SYMBOLS = ["🎉", "✨", "🎈", "🎊", "⭐", "🎉", "💛", "✨"];
 
-export default function IntroScreen({ onOpened }: IntroScreenProps) {
+export default function IntroScreen({ onOpened, onOpenStart }: IntroScreenProps) {
   const [closing, setClosing] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const giftRef = useRef<HTMLSpanElement>(null);
@@ -89,6 +90,7 @@ export default function IntroScreen({ onOpened }: IntroScreenProps) {
   const handleOpen = () => {
     if (busyRef.current) return;
     busyRef.current = true;
+    onOpenStart?.();
     playGiftOpen();
 
     const root = rootRef.current;
