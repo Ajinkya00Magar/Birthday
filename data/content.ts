@@ -53,9 +53,9 @@ export const content = {
   // --- Group senders ---
   senders: ["Ajinkya", "Rutvik", "Dipika", "Pranav", "Omkar"] as string[],
 
-  // --- PIN lock: 1234567 ---
-  accessPin: "1234567" as string,
-  pinHint: "Hint: 1234567" as string,
+  // --- PIN lock: 14112007 ---
+  accessPin: "14112007" as string,
+  pinHint: "Hint: 14112007" as string,
 
   // --- Loading screen ---
   loadingLabel: "Putting together a little birthday chaos for Yogi…",
@@ -342,15 +342,15 @@ export const content = {
   albumRailTracks: [
     {
       id: "track-1",
-      title: "Yogi's Birthday Anthem",
-      artist: "For Our Yogi",
+      title: "Kho Gaye Hum Kahan",
+      artist: "Special Dedication For Yogi",
       coverSrc: "/photos/track-yogi-cafe.jpeg",
       audioSrc: "/songs/track1.mp3",
     },
     {
       id: "track-2",
-      title: "Fists Up & Deadlines",
-      artist: "Ajinkya, Rutvik & Yogi",
+      title: "Ilahi",
+      artist: "Birthday Vibes",
       coverSrc: "/photos/track-trio-fists.jpeg",
       audioSrc: "/songs/track2.mp3",
     },

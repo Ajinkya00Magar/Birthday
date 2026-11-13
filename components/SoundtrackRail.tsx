@@ -24,20 +24,23 @@ export default function SoundtrackRail({
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // If background music starts playing, pause vinyl record
+  // Pause vinyl if background music starts playing
   useEffect(() => {
-    const handleBgmPlay = () => {
-      if (audioRef.current && isPlaying) {
-        audioRef.current.pause();
-        setIsPlaying(false);
-      }
+    const handlePauseRail = () => {
+      audioRef.current?.pause();
+      setIsPlaying(false);
     };
 
-    window.addEventListener("bgm-audio-playing", handleBgmPlay);
-    return () => window.removeEventListener("bgm-audio-playing", handleBgmPlay);
-  }, [isPlaying]);
+    window.addEventListener("pause-rail-music", handlePauseRail);
+    window.addEventListener("bgm-audio-playing", handlePauseRail);
+    return () => {
+      window.removeEventListener("pause-rail-music", handlePauseRail);
+      window.removeEventListener("bgm-audio-playing", handlePauseRail);
+    };
+  }, []);
 
   const notifyVinylPlaying = () => {
+    window.dispatchEvent(new CustomEvent("pause-bg-music"));
     window.dispatchEvent(new CustomEvent("vinyl-audio-playing"));
   };
 
@@ -49,10 +52,14 @@ export default function SoundtrackRail({
         audioRef.current?.pause();
         setIsPlaying(false);
       } else {
-        if (track.audioSrc) {
-          audioRef.current?.play().then(() => {
+        if (track.audioSrc && audioRef.current) {
+          if (!audioRef.current.src || !audioRef.current.src.endsWith(track.audioSrc)) {
+            audioRef.current.src = track.audioSrc;
+            audioRef.current.load();
+          }
+          notifyVinylPlaying();
+          audioRef.current.play().then(() => {
             setIsPlaying(true);
-            notifyVinylPlaying();
           }).catch(() => {
             setIsPlaying(false);
           });
@@ -69,9 +76,9 @@ export default function SoundtrackRail({
       audioRef.current.pause();
       audioRef.current.src = track.audioSrc;
       audioRef.current.load();
+      notifyVinylPlaying();
       audioRef.current.play().then(() => {
         setIsPlaying(true);
-        notifyVinylPlaying();
       }).catch(() => {
         setIsPlaying(false);
       });
@@ -98,6 +105,7 @@ export default function SoundtrackRail({
       <audio
         ref={audioRef}
         src={currentTrack?.audioSrc || ""}
+        preload="none"
         onEnded={() => setIsPlaying(false)}
         onError={() => {
           setIsPlaying(false);

@@ -77,17 +77,20 @@ export default function PinScreen({ pin, recipientName, hint, onUnlock }: PinScr
     setDigits((current) => (current.length < length ? [...current, key] : current));
   };
 
+  const pressKeyRef = useRef(pressKey);
+  pressKeyRef.current = pressKey;
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key >= "0" && event.key <= "9") {
-        pressKey(event.key);
+        pressKeyRef.current(event.key);
       } else if (event.key === "Backspace") {
-        pressKey("back");
+        pressKeyRef.current("back");
       }
     };
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  });
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";

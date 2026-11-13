@@ -66,6 +66,15 @@ export default function MusicPlayer({
   }, [shouldPlay, hasSong]);
 
   useEffect(() => {
+    const handlePauseBg = () => {
+      setIsPlaying(false);
+      userManuallyPausedRef.current = true;
+    };
+    window.addEventListener("pause-bg-music", handlePauseBg);
+    return () => window.removeEventListener("pause-bg-music", handlePauseBg);
+  }, []);
+
+  useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     if (isPlaying) {
@@ -145,6 +154,7 @@ export default function MusicPlayer({
             userManuallyPausedRef.current = true;
             setIsPlaying(false);
           } else {
+            window.dispatchEvent(new CustomEvent("pause-rail-music"));
             userManuallyPausedRef.current = false;
             setIsPlaying(true);
           }
