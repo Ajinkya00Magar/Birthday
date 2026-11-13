@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Reveal from "./Reveal";
 import KineticText from "./KineticText";
@@ -24,6 +24,23 @@ export default function SoundtrackRail({
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // If background music starts playing, pause vinyl record
+  useEffect(() => {
+    const handleBgmPlay = () => {
+      if (audioRef.current && isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      }
+    };
+
+    window.addEventListener("bgm-audio-playing", handleBgmPlay);
+    return () => window.removeEventListener("bgm-audio-playing", handleBgmPlay);
+  }, [isPlaying]);
+
+  const notifyVinylPlaying = () => {
+    window.dispatchEvent(new CustomEvent("vinyl-audio-playing"));
+  };
+
   const handleSelectTrack = (index: number) => {
     const track = tracks[index];
     if (activeIndex === index) {
@@ -35,6 +52,7 @@ export default function SoundtrackRail({
         if (track.audioSrc) {
           audioRef.current?.play().then(() => {
             setIsPlaying(true);
+            notifyVinylPlaying();
           }).catch(() => {
             setIsPlaying(false);
           });
@@ -53,6 +71,7 @@ export default function SoundtrackRail({
       audioRef.current.load();
       audioRef.current.play().then(() => {
         setIsPlaying(true);
+        notifyVinylPlaying();
       }).catch(() => {
         setIsPlaying(false);
       });

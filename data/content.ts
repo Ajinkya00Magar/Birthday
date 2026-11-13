@@ -342,10 +342,10 @@ export const content = {
   albumRailTracks: [
     {
       id: "track-1",
-      title: "Happy Birthday Yogi (Whistle Snap)",
-      artist: "Theme Stars",
+      title: "Yogi's Birthday Anthem",
+      artist: "For Our Yogi",
       coverSrc: "/photos/track-yogi-cafe.jpeg",
-      audioSrc: "/songs/Theme Stars - Happy Birthday to You (Whistle Snap).mp3",
+      audioSrc: "/songs/track1.mp3",
     },
     {
       id: "track-2",

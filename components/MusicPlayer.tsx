@@ -28,6 +28,19 @@ export default function MusicPlayer({
   const [hintVisible, setHintVisible] = useState<boolean>(false);
   const hasSong = Boolean(songUrl);
 
+  // Stop background music whenever any vinyl track starts playing
+  useEffect(() => {
+    const handleVinylPlay = () => {
+      if (audioRef.current && isPlaying) {
+        audioRef.current.pause();
+        setIsPlaying(false);
+      }
+    };
+
+    window.addEventListener("vinyl-audio-playing", handleVinylPlay);
+    return () => window.removeEventListener("vinyl-audio-playing", handleVinylPlay);
+  }, [isPlaying]);
+
   // Start music right after the user clicks "Open your surprise"
   useEffect(() => {
     const audio = audioRef.current;
@@ -39,6 +52,7 @@ export default function MusicPlayer({
           .play()
           .then(() => {
             setIsPlaying(true);
+            window.dispatchEvent(new CustomEvent("bgm-audio-playing"));
           })
           .catch((err) => {
             console.warn("Autoplay deferred or blocked:", err);
@@ -55,7 +69,9 @@ export default function MusicPlayer({
     const audio = audioRef.current;
     if (!audio) return;
     if (isPlaying) {
-      audio.play().catch(() => {});
+      audio.play().then(() => {
+        window.dispatchEvent(new CustomEvent("bgm-audio-playing"));
+      }).catch(() => {});
     } else {
       audio.pause();
     }
