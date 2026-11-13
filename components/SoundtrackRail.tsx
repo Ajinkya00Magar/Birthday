@@ -45,14 +45,27 @@ export default function SoundtrackRail({
         setIsPlaying(false);
       } else {
         if (track.audioSrc) {
-          audio.src = track.audioSrc;
           window.dispatchEvent(new CustomEvent("pause-bg-music"));
+          const targetSrc = encodeURI(track.audioSrc);
+          if (!audio.src || !audio.src.includes(encodeURIComponent(track.audioSrc.replace(/^\//, "")))) {
+            audio.src = targetSrc;
+          }
           audio
             .play()
             .then(() => setIsPlaying(true))
-            .catch((err) => {
-              console.warn("Play error:", err);
-              setIsPlaying(false);
+            .catch(() => {
+              // Try fallback if primary format had issues
+              const fallback = track.audioSrc.includes(".mpeg")
+                ? encodeURI(track.audioSrc.replace(/\.mpeg$/i, ".mp3"))
+                : track.audioSrc.includes("WhatsApp")
+                ? `/songs/track${index + 1}.mp3`
+                : null;
+              if (fallback) {
+                audio.src = fallback;
+                audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+              } else {
+                setIsPlaying(false);
+              }
             });
         }
       }
@@ -61,18 +74,27 @@ export default function SoundtrackRail({
 
     // Switch to a new track and play immediately
     setActiveIndex(index);
+    window.dispatchEvent(new CustomEvent("pause-bg-music"));
     audio.pause();
     setIsPlaying(false);
 
     if (track.audioSrc) {
-      audio.src = track.audioSrc;
-      window.dispatchEvent(new CustomEvent("pause-bg-music"));
+      audio.src = encodeURI(track.audioSrc);
       audio
         .play()
         .then(() => setIsPlaying(true))
-        .catch((err) => {
-          console.warn("Play error:", err);
-          setIsPlaying(false);
+        .catch(() => {
+          const fallback = track.audioSrc.includes(".mpeg")
+            ? encodeURI(track.audioSrc.replace(/\.mpeg$/i, ".mp3"))
+            : track.audioSrc.includes("WhatsApp")
+            ? `/songs/track${index + 1}.mp3`
+            : null;
+          if (fallback) {
+            audio.src = fallback;
+            audio.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false));
+          } else {
+            setIsPlaying(false);
+          }
         });
     }
   };
@@ -96,7 +118,6 @@ export default function SoundtrackRail({
       {/* Hidden audio element for vinyl playback */}
       <audio
         ref={audioRef}
-        src={currentTrack?.audioSrc || ""}
         preload="none"
         onEnded={() => setIsPlaying(false)}
         onError={() => {

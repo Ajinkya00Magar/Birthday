@@ -15,6 +15,19 @@ const nextConfig = {
       { protocol: "http", hostname: "**" },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: "/songs/:path*",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "audio/mpeg",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
