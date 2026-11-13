@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { content } from "@/data/content";
 import { getLenis } from "@/components/lenis-singleton";
 import StageTransition from "@/components/StageTransition";
@@ -23,15 +23,30 @@ import MusicPlayer from "@/components/MusicPlayer";
 
 type Stage = "loading" | "locked" | "intro" | "main";
 
+const PIN_STORAGE_KEY = "yogi_birthday_pin_unlocked";
+
 export default function Home() {
   const [stage, setStage] = useState<Stage>("loading");
   const [showMusicHint, setShowMusicHint] = useState(false);
   const [shouldPlayMusic, setShouldPlayMusic] = useState(false);
   const nextAfterLoading = useRef<"locked" | "intro">(content.accessPin ? "locked" : "intro");
 
+  useEffect(() => {
+    try {
+      if (typeof window !== "undefined" && localStorage.getItem(PIN_STORAGE_KEY) === "true") {
+        nextAfterLoading.current = "intro";
+      }
+    } catch {}
+  }, []);
+
   const handleLoadingDone = () => setStage(nextAfterLoading.current);
 
   const handleUnlock = () => {
+    try {
+      if (typeof window !== "undefined") {
+        localStorage.setItem(PIN_STORAGE_KEY, "true");
+      }
+    } catch {}
     setStage("intro");
   };
 
