@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { content } from "@/data/content";
 import { getLenis } from "@/components/lenis-singleton";
 import StageTransition from "@/components/StageTransition";
@@ -22,17 +22,62 @@ import Closing from "@/components/Closing";
 import MusicPlayer from "@/components/MusicPlayer";
 
 type Stage = "loading" | "locked" | "intro" | "main";
+type AuthMode = "personal" | "public";
+
+// Photos specifically requested to be excluded from the public view
+const PRIVATE_PHOTO_SRCS = new Set([
+  "/photos/gallery-warm-duo.jpeg",
+  "/photos/gallery-lab-duo.jpeg",
+  "/photos/gallery-red-wall.jpeg",
+  "/photos/gallery-chandelier-duo.jpeg",
+  "/photos/gallery-certificates-squad.jpeg",
+  "/photos/gallery-call-screenshot.jpeg",
+  "/photos/memory-video-3.mp4",
+]);
 
 export default function Home() {
   const [stage, setStage] = useState<Stage>("loading");
+  const [authMode, setAuthMode] = useState<AuthMode>("personal");
   const [showMusicHint, setShowMusicHint] = useState(false);
   const [shouldPlayMusic, setShouldPlayMusic] = useState(false);
-  const nextAfterLoading = useRef<"locked" | "intro">(content.accessPin ? "locked" : "intro");
 
-  const handleLoadingDone = () => setStage(nextAfterLoading.current);
+  // Restore authenticated view on page reload directly to home page (main)
+  useEffect(() => {
+    try {
+      const savedAuth = localStorage.getItem("birthday_auth_mode") as AuthMode | null;
+      if (savedAuth === "personal" || savedAuth === "public") {
+        setAuthMode(savedAuth);
+        setStage("main");
+      }
+    } catch {
+      // localStorage may fail in restricted environments
+    }
+  }, []);
 
-  const handleUnlock = () => {
+  const handleLoadingDone = () => {
+    setStage("locked");
+  };
+
+  const handleUnlock = (mode: "personal" | "public") => {
+    setAuthMode(mode);
+    try {
+      localStorage.setItem("birthday_auth_mode", mode);
+    } catch {}
     setStage("intro");
+  };
+
+  const handleLock = () => {
+    try {
+      localStorage.removeItem("birthday_auth_mode");
+    } catch {}
+    setStage("locked");
+    setShouldPlayMusic(false);
+    const lenis = getLenis();
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
   };
 
   const handleOpenStart = () => {
@@ -57,12 +102,76 @@ export default function Home() {
     }
   };
 
-  const ajinkyaLetter = content.letters.find((l) => l.author === "Ajinkya") || content.letters[0];
-  const rutvikLetter = content.letters.find((l) => l.author === "Rutvik");
-  const dipikaLetter = content.letters.find((l) => l.author === "Dipika") || content.letters[1];
-  const extraLetters = content.letters.filter(
-    (l) => l !== ajinkyaLetter && l !== rutvikLetter && l !== dipikaLetter
-  );
+  const isPublic = authMode === "public";
+
+  // Dynamic content mappings based on Personal vs Public view
+  const displayName = isPublic ? "Yogeshwari" : content.displayName;
+  const recipientName = isPublic ? "Yogeshwari Thombare" : content.recipientName;
+  const introTitle = isPublic ? "Yogeshwari, this one's for you." : content.introTitle;
+  const heroEyebrow = isPublic
+    ? "A little celebration for our favourite person"
+    : content.heroEyebrow;
+
+  // Letters: completely omitted in public view
+  const ajinkyaLetter = !isPublic ? content.letters.find((l) => l.author === "Ajinkya") : null;
+  const rutvikLetter = !isPublic ? content.letters.find((l) => l.author === "Rutvik") : null;
+  const dipikaLetter = !isPublic ? content.letters.find((l) => l.author === "Dipika") : null;
+
+  // Reasons Why
+  const reasonsEyebrow = isPublic ? "Why Yogeshwari is so special" : content.reasonsEyebrow;
+  const reasons = isPublic
+    ? content.reasonsWhy.map((r) => r.replaceAll("Yogi", "Yogeshwari"))
+    : content.reasonsWhy;
+
+  // Gallery: filter out private photos and replace "Yogi" with "Yogeshwari"
+  const galleryTitle = isPublic ? "The Yogeshwari Archives" : content.galleryTitle;
+  const galleryPhotos = isPublic
+    ? content.galleryPhotos
+        .filter((photo) => !PRIVATE_PHOTO_SRCS.has(photo.src))
+        .map((photo) => ({
+          ...photo,
+          caption: photo.caption ? photo.caption.replaceAll("Yogi", "Yogeshwari") : "",
+        }))
+    : content.galleryPhotos;
+
+  // Appreciation
+  const appreciationParagraphs = isPublic
+    ? content.appreciationParagraphs.map((p) => p.replaceAll("Yogi", "Yogeshwari"))
+    : content.appreciationParagraphs;
+
+  // Memories
+  const memoryItems = isPublic
+    ? content.memoryItems.map((m) => m.replaceAll("Yogi", "Yogeshwari"))
+    : content.memoryItems;
+
+  // Album Rail
+  const albumRailTitle = isPublic ? "Yogeshwari's Album Rail" : content.albumRailTitle;
+
+  // Wishes
+  const wishesEyebrow = isPublic ? "For you, Yogeshwari" : content.wishesEyebrow;
+  const wishes = isPublic
+    ? content.wishes.map((w) => w.replaceAll("Yogi", "Yogeshwari"))
+    : content.wishes;
+
+  // Surprise
+  const surpriseTitle = isPublic
+    ? "A Tiny Dose of Yogeshwari Appreciation"
+    : content.surpriseTitle;
+  const hugMessage = isPublic
+    ? "Giant hugs are on the way to Yogeshwari. 🤗"
+    : content.hugMessage;
+  const secretMessage = isPublic
+    ? content.secretMessage.replaceAll("Yogi", "Yogeshwari")
+    : content.secretMessage;
+  const sweetLines = isPublic
+    ? content.sweetLines.map((s) => s.replaceAll("Yogi", "Yogeshwari"))
+    : content.sweetLines;
+
+  // Closing
+  const closingTitle = isPublic ? "Happy Birthday, Yogeshwari." : content.closingTitle;
+  const closingParagraph = isPublic
+    ? content.closingParagraph.replaceAll("Yogi", "Yogeshwari")
+    : content.closingParagraph;
 
   return (
     <>
@@ -72,110 +181,122 @@ export default function Home() {
 
           {stage === "locked" ? (
             <PinScreen
-              pin={content.accessPin}
-              recipientName={content.displayName || content.recipientName}
+              personalPin={content.personalPin || "14112007"}
+              publicPin={content.publicPin || "02102005"}
+              recipientName={displayName}
               hint={content.pinHint}
+              securityQuestion={content.securityQuestion || "What do we call you?"}
+              securityAnswer={content.securityAnswer || "yogi"}
               onUnlock={handleUnlock}
             />
           ) : null}
 
           {stage === "intro" ? (
-            <IntroScreen onOpened={handleOpened} onOpenStart={handleOpenStart} />
+            <IntroScreen
+              title={introTitle}
+              onOpened={handleOpened}
+              onOpenStart={handleOpenStart}
+            />
           ) : null}
         </StageTransition>
       ) : null}
 
       <main>
         <Hero
-          displayName={content.displayName}
-          recipientName={content.recipientName}
+          displayName={displayName}
+          recipientName={recipientName}
           age={content.age}
           birthdayDate={content.birthdayDate}
-          eyebrow={content.heroEyebrow}
+          eyebrow={heroEyebrow}
           supportingLine={content.heroSupportingLine}
           photo={content.heroPhoto}
         />
 
-        {ajinkyaLetter ? <LetterCard letter={ajinkyaLetter} colorClass="section--pink" /> : null}
+        {/* 1) Personal letters: strictly rendered ONLY in personal view */}
+        {!isPublic && ajinkyaLetter ? (
+          <LetterCard letter={ajinkyaLetter} colorClass="section--pink" />
+        ) : null}
 
         <ReasonsWhy
-          eyebrow={content.reasonsEyebrow}
+          eyebrow={reasonsEyebrow}
           title={content.reasonsTitle}
           lede={content.reasonsLede}
-          reasons={content.reasonsWhy}
+          reasons={reasons}
         />
 
-        {rutvikLetter ? <LetterCard letter={rutvikLetter} colorClass="section--coral" /> : null}
+        {!isPublic && rutvikLetter ? (
+          <LetterCard letter={rutvikLetter} colorClass="section--coral" />
+        ) : null}
 
-        {dipikaLetter ? <LetterCard letter={dipikaLetter} colorClass="section--sun" /> : null}
+        {!isPublic && dipikaLetter ? (
+          <LetterCard letter={dipikaLetter} colorClass="section--sun" />
+        ) : null}
 
-        {extraLetters.map((letter, idx) => (
-          <LetterCard
-            key={letter.author}
-            letter={letter}
-            colorClass={idx % 2 === 0 ? "section--turquoise" : "section--coral"}
-          />
-        ))}
-
+        {/* 2) Gallery with private photos filtered out in public view */}
         <Gallery
           eyebrow={content.galleryEyebrow}
-          title={content.galleryTitle}
+          title={galleryTitle}
           subtitle={content.gallerySubtitle}
-          photos={content.galleryPhotos}
+          photos={galleryPhotos}
         />
 
-        <Timeline
-          eyebrow={content.timelineEyebrow}
-          title={content.timelineTitle}
-          events={content.timeline}
-        />
+        {/* 3) "From One SIH Meeting to So Many Memories": strictly removed in public view */}
+        {!isPublic ? (
+          <Timeline
+            eyebrow={content.timelineEyebrow}
+            title={content.timelineTitle}
+            events={content.timeline}
+          />
+        ) : null}
 
         <Appreciation
           eyebrow={content.appreciationEyebrow}
           title={content.appreciationTitle}
-          paragraphs={content.appreciationParagraphs}
+          paragraphs={appreciationParagraphs}
         />
 
         <MoreMemories
           eyebrow={content.memoriesEyebrow}
           title={content.memoriesTitle}
           subtitle={content.memoriesSubtitle}
-          items={content.memoryItems}
+          items={memoryItems}
         />
 
         <SoundtrackRail
           eyebrow={content.albumRailEyebrow}
-          title={content.albumRailTitle}
+          title={albumRailTitle}
           subtitle={content.albumRailSubtitle}
           tracks={content.albumRailTracks}
         />
 
         <Wishes
-          eyebrow={content.wishesEyebrow}
+          eyebrow={wishesEyebrow}
           title={content.wishesTitle}
           intro={content.wishesIntro}
-          wishes={content.wishes}
+          wishes={wishes}
         />
 
-        <BirthdayCake recipientName={content.displayName} />
+        <BirthdayCake recipientName={displayName} />
 
         <Surprise
           eyebrow={content.surpriseEyebrow}
-          title={content.surpriseTitle}
+          title={surpriseTitle}
           lede={content.surpriseLede}
-          hugMessage={content.hugMessage}
+          hugMessage={hugMessage}
           secretButtonLabel={content.secretButtonLabel}
-          secretMessage={content.secretMessage}
-          sweetLines={content.sweetLines}
+          secretMessage={secretMessage}
+          sweetLines={sweetLines}
         />
 
         <Closing
-          title={content.closingTitle}
-          paragraph={content.closingParagraph}
+          title={closingTitle}
+          paragraph={closingParagraph}
           senders={content.senders}
           replayLabel={content.replayLabel}
           photo={content.closingPhoto}
           onReplay={handleReplay}
+          onLock={handleLock}
+          lockLabel="Lock / Switch Mode"
         />
       </main>
 

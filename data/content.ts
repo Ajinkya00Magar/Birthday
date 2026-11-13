@@ -53,9 +53,13 @@ export const content = {
   // --- Group senders ---
   senders: ["Ajinkya", "Rutvik", "Dipika", "Pranav", "Omkar"] as string[],
 
-  // --- PIN lock: 14112007 ---
+  // --- PIN lock: 14112007 (Personal) & 02102005 (Public) ---
   accessPin: "14112007" as string,
-  pinHint: "Hint: 14112007" as string,
+  personalPin: "14112007" as string,
+  publicPin: "02102005" as string,
+  securityQuestion: "What do we call you?" as string,
+  securityAnswer: "yogi" as string,
+  pinHint: "Enter code (14112007 or 02102005)" as string,
 
   // --- Loading screen ---
   loadingLabel: "Putting together a little birthday chaos for Yogi…",

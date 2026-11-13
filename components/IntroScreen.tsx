@@ -8,13 +8,15 @@ import { playGiftOpen } from "./sound-effects";
 import { content } from "@/data/content";
 
 type IntroScreenProps = {
+  title?: string;
+  subtitle?: string;
   onOpened: () => void;
   onOpenStart?: () => void;
 };
 
 const BURST_SYMBOLS = ["🎉", "✨", "🎈", "🎊", "⭐", "🎉", "💛", "✨"];
 
-export default function IntroScreen({ onOpened, onOpenStart }: IntroScreenProps) {
+export default function IntroScreen({ title, subtitle, onOpened, onOpenStart }: IntroScreenProps) {
   const [closing, setClosing] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const giftRef = useRef<HTMLSpanElement>(null);
@@ -156,8 +158,8 @@ export default function IntroScreen({ onOpened, onOpenStart }: IntroScreenProps)
       <span className="intro__gift-symbol" aria-hidden="true" ref={giftRef}>
         🎁
       </span>
-      <h1 className="intro__title">{content.introTitle}</h1>
-      <p className="intro__subtitle">{content.introSubtitle}</p>
+      <h1 className="intro__title">{title || content.introTitle}</h1>
+      <p className="intro__subtitle">{subtitle || content.introSubtitle}</p>
 
       <button type="button" className="btn btn--primary intro__button" onClick={handleOpen}>
         <GiftIcon className="intro__gift" />

@@ -13,6 +13,8 @@ type ClosingProps = {
   replayLabel?: string;
   photo: Photo;
   onReplay: () => void;
+  onLock?: () => void;
+  lockLabel?: string;
 };
 
 export default function Closing({
@@ -23,6 +25,8 @@ export default function Closing({
   replayLabel = "Watch our little surprise again",
   photo,
   onReplay,
+  onLock,
+  lockLabel = "Lock / Switch View",
 }: ClosingProps) {
   return (
     <section className="section closing" id="closing" aria-label="Closing">
@@ -45,11 +49,17 @@ export default function Closing({
         <p className="closing__signoff-names">{senders.join(" • ")}</p>
       </Reveal>
 
-      <Reveal as="div" delay={320}>
+      <Reveal as="div" delay={320} className="closing__actions">
         <button type="button" className="btn btn--ghost closing__replay" onClick={onReplay}>
           <ReplayIcon />
           {replayLabel}
         </button>
+        {onLock ? (
+          <button type="button" className="btn btn--ghost closing__replay" onClick={onLock}>
+            <span>🔒</span>
+            <span>{lockLabel}</span>
+          </button>
+        ) : null}
       </Reveal>
 
       <footer className="footer">{footerText}</footer>
