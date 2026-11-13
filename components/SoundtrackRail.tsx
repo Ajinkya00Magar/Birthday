@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Reveal from "./Reveal";
 import KineticText from "./KineticText";
@@ -24,6 +24,15 @@ export default function SoundtrackRail({
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  useEffect(() => {
+    const handlePauseRail = () => {
+      audioRef.current?.pause();
+      setIsPlaying(false);
+    };
+    window.addEventListener("pause-rail-music", handlePauseRail);
+    return () => window.removeEventListener("pause-rail-music", handlePauseRail);
+  }, []);
+
   const handleSelectTrack = (index: number) => {
     const track = tracks[index];
     if (activeIndex === index) {
@@ -32,8 +41,13 @@ export default function SoundtrackRail({
         audioRef.current?.pause();
         setIsPlaying(false);
       } else {
-        if (track.audioSrc) {
-          audioRef.current?.play().then(() => {
+        if (track.audioSrc && audioRef.current) {
+          if (!audioRef.current.src || !audioRef.current.src.endsWith(track.audioSrc)) {
+            audioRef.current.src = track.audioSrc;
+            audioRef.current.load();
+          }
+          window.dispatchEvent(new CustomEvent("pause-bg-music"));
+          audioRef.current.play().then(() => {
             setIsPlaying(true);
           }).catch(() => {
             setIsPlaying(false);
@@ -51,6 +65,7 @@ export default function SoundtrackRail({
       audioRef.current.pause();
       audioRef.current.src = track.audioSrc;
       audioRef.current.load();
+      window.dispatchEvent(new CustomEvent("pause-bg-music"));
       audioRef.current.play().then(() => {
         setIsPlaying(true);
       }).catch(() => {
