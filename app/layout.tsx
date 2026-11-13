@@ -26,11 +26,11 @@ const handwriting = Kalam({
   display: "swap",
 });
 
-const title = `Happy Birthday, ${content.partnerName}`;
-const description = "A little digital gift, made just for you 💛";
+const title = `Happy Birthday, ${content.displayName}! 🎂`;
+const description = "For our Yogi — from Ajinkya, Rutvik, Dipika, Pranav & Omkar 💛";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://birthday-jani.vercel.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://birthday-yogi.vercel.app"),
   title,
   description,
   openGraph: {

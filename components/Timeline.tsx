@@ -4,8 +4,6 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Reveal from "./Reveal";
-import DaysTogetherCounter from "./DaysTogetherCounter";
-import NextMeetupCountdown from "./NextMeetupCountdown";
 import KineticText from "./KineticText";
 import type { TimelineEvent } from "@/data/content";
 
@@ -14,19 +12,15 @@ if (typeof window !== "undefined") {
 }
 
 type TimelineProps = {
+  eyebrow?: string;
+  title?: string;
   events: TimelineEvent[];
-  relationshipStartDateISO: string;
-  nextMeetupDateISO: string;
-  nextMeetupLocation: string;
-  nextMeetupWhenLabel: string;
 };
 
 export default function Timeline({
+  eyebrow = "How this little story happened",
+  title = "From One SIH Meeting to So Many Memories",
   events,
-  relationshipStartDateISO,
-  nextMeetupDateISO,
-  nextMeetupLocation,
-  nextMeetupWhenLabel,
 }: TimelineProps) {
   const listRef = useRef<HTMLOListElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -77,25 +71,13 @@ export default function Timeline({
   }, [events]);
 
   return (
-    <section className="section section--sun" id="timeline" aria-label="Our relationship journey">
+    <section className="section section--sun" id="timeline" aria-label={title}>
       <Reveal as="p" className="section__eyebrow">
-        Our journey
+        {eyebrow}
       </Reveal>
       <h2 className="section__title">
-        <KineticText text="Relationship Timeline" />
+        <KineticText text={title} />
       </h2>
-
-      <Reveal as="div" variant="pop" className="days-counter-wrap">
-        <DaysTogetherCounter startDateISO={relationshipStartDateISO} />
-      </Reveal>
-
-      <Reveal as="div" variant="pop" delay={100} className="days-counter-wrap">
-        <NextMeetupCountdown
-          targetDateISO={nextMeetupDateISO}
-          location={nextMeetupLocation}
-          whenLabel={nextMeetupWhenLabel}
-        />
-      </Reveal>
 
       <div className="timeline-track">
         <div className="timeline__progress" ref={progressRef} aria-hidden="true" />

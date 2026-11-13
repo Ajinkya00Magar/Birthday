@@ -8,13 +8,28 @@ import KineticText from "./KineticText";
 import { HeartIcon, ShuffleIcon, SparkleIcon } from "./icons";
 
 type SurpriseProps = {
+  eyebrow?: string;
+  title?: string;
+  lede?: string;
+  hugButtonLabel?: string;
   hugMessage: string;
   secretButtonLabel: string;
   secretMessage: string;
+  complimentButtonLabel?: string;
   sweetLines: string[];
 };
 
-export default function Surprise({ hugMessage, secretButtonLabel, secretMessage, sweetLines }: SurpriseProps) {
+export default function Surprise({
+  eyebrow = "One last thing (okay, maybe three)",
+  title = "A Tiny Dose of Yogi Appreciation",
+  lede = "Because apparently one page of compliments was not enough.",
+  hugButtonLabel = "Send Yogi a group hug",
+  hugMessage,
+  secretButtonLabel,
+  secretMessage,
+  complimentButtonLabel = "Need another compliment?",
+  sweetLines,
+}: SurpriseProps) {
   const [hugTrigger, setHugTrigger] = useState(0);
   const [confettiTrigger, setConfettiTrigger] = useState(0);
   const [feedback, setFeedback] = useState("");
@@ -43,21 +58,23 @@ export default function Surprise({ hugMessage, secretButtonLabel, secretMessage,
   };
 
   return (
-    <section className="section section--pink" id="surprise" aria-label="A little surprise">
+    <section className="section section--pink" id="surprise" aria-label={title}>
       <Reveal as="p" className="section__eyebrow">
-        Before you go
+        {eyebrow}
       </Reveal>
       <h2 className="section__title">
-        <KineticText text="A Little Surprise" />
+        <KineticText text={title} />
       </h2>
-      <Reveal as="p" className="section__lede">
-        A few small buttons, a few little pieces of love I want to leave with you.
-      </Reveal>
+      {lede ? (
+        <Reveal as="p" className="section__lede">
+          {lede}
+        </Reveal>
+      ) : null}
 
       <Reveal as="div" variant="wiggle" delay={100} className="surprise__actions">
         <button type="button" className="btn btn--primary" onClick={handleHug}>
           <HeartIcon size={18} className="icon-heartbeat" />
-          Virtual hug
+          {hugButtonLabel}
         </button>
 
         {!secretOpen ? (
@@ -70,7 +87,7 @@ export default function Surprise({ hugMessage, secretButtonLabel, secretMessage,
         {sweetLines.length > 0 ? (
           <button type="button" className="btn btn--ghost" onClick={handleSweetLine}>
             <ShuffleIcon size={18} />
-            {sweetLine ? "One more" : "Need something sweet?"}
+            {sweetLine ? "One more" : complimentButtonLabel}
           </button>
         ) : null}
       </Reveal>

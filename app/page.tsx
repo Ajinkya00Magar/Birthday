@@ -8,12 +8,12 @@ import LoadingScreen from "@/components/LoadingScreen";
 import PinScreen from "@/components/PinScreen";
 import IntroScreen from "@/components/IntroScreen";
 import Hero from "@/components/Hero";
-import LoveLetter from "@/components/LoveLetter";
+import LetterCard from "@/components/LetterCard";
 import ReasonsWhy from "@/components/ReasonsWhy";
 import Gallery from "@/components/Gallery";
 import Timeline from "@/components/Timeline";
-import Distance from "@/components/Distance";
-import ReunionList from "@/components/ReunionList";
+import Appreciation from "@/components/Appreciation";
+import MoreMemories from "@/components/MoreMemories";
 import Wishes from "@/components/Wishes";
 import Surprise from "@/components/Surprise";
 import Closing from "@/components/Closing";
@@ -24,9 +24,6 @@ type Stage = "loading" | "locked" | "intro" | "main";
 export default function Home() {
   const [stage, setStage] = useState<Stage>("loading");
   const [showMusicHint, setShowMusicHint] = useState(false);
-  // Every fresh page load re-asks for the PIN when one is set — nothing is
-  // remembered across visits, so re-opening the link always shows the lock
-  // screen again instead of skipping straight to "Open your gift".
   const nextAfterLoading = useRef<"locked" | "intro">(content.accessPin ? "locked" : "intro");
 
   const handleLoadingDone = () => setStage(nextAfterLoading.current);
@@ -51,6 +48,10 @@ export default function Home() {
     }
   };
 
+  const ajinkyaLetter = content.letters.find((l) => l.author === "Ajinkya") || content.letters[0];
+  const dipikaLetter = content.letters.find((l) => l.author === "Dipika") || content.letters[1];
+  const extraLetters = content.letters.filter((l) => l !== ajinkyaLetter && l !== dipikaLetter);
+
   return (
     <>
       {stage !== "main" ? (
@@ -60,55 +61,79 @@ export default function Home() {
           {stage === "locked" ? (
             <PinScreen
               pin={content.accessPin}
-              partnerName={content.partnerName}
+              recipientName={content.displayName || content.recipientName}
               hint={content.pinHint}
               onUnlock={handleUnlock}
             />
           ) : null}
 
-          {stage === "intro" ? (
-            <IntroScreen partnerName={content.partnerName} onOpened={handleOpened} />
-          ) : null}
+          {stage === "intro" ? <IntroScreen onOpened={handleOpened} /> : null}
         </StageTransition>
       ) : null}
 
       <main>
         <Hero
-          partnerName={content.partnerName}
+          displayName={content.displayName}
+          recipientName={content.recipientName}
           age={content.age}
           birthdayDate={content.birthdayDate}
+          eyebrow={content.heroEyebrow}
+          supportingLine={content.heroSupportingLine}
           photo={content.heroPhoto}
         />
 
-        <LoveLetter
-          partnerName={content.partnerName}
-          senderName={content.senderName}
-          paragraphs={content.loveLetterParagraphs}
+        {ajinkyaLetter ? <LetterCard letter={ajinkyaLetter} colorClass="section--pink" /> : null}
+
+        <ReasonsWhy
+          eyebrow={content.reasonsEyebrow}
+          title={content.reasonsTitle}
+          lede={content.reasonsLede}
+          reasons={content.reasonsWhy}
         />
 
-        <ReasonsWhy partnerName={content.partnerName} reasons={content.reasonsWhy} />
+        {dipikaLetter ? <LetterCard letter={dipikaLetter} colorClass="section--sun" /> : null}
 
-        <Gallery photos={content.galleryPhotos} />
+        {extraLetters.map((letter) => (
+          <LetterCard key={letter.author} letter={letter} colorClass="section--coral" />
+        ))}
+
+        <Gallery
+          eyebrow={content.galleryEyebrow}
+          title={content.galleryTitle}
+          subtitle={content.gallerySubtitle}
+          photos={content.galleryPhotos}
+        />
 
         <Timeline
+          eyebrow={content.timelineEyebrow}
+          title={content.timelineTitle}
           events={content.timeline}
-          relationshipStartDateISO={content.relationshipStartDateISO}
-          nextMeetupDateISO={content.nextMeetupDateISO}
-          nextMeetupLocation={content.nextMeetupLocation}
-          nextMeetupWhenLabel={content.nextMeetupWhenLabel}
         />
 
-        <Distance
-          paragraphs={content.distanceParagraphs}
-          nextMeetupLocation={content.nextMeetupLocation}
-          nextMeetupWhenLabel={content.nextMeetupWhenLabel}
+        <Appreciation
+          eyebrow={content.appreciationEyebrow}
+          title={content.appreciationTitle}
+          paragraphs={content.appreciationParagraphs}
         />
 
-        <ReunionList items={content.reunionBucketList} location={content.nextMeetupLocation} />
+        <MoreMemories
+          eyebrow={content.memoriesEyebrow}
+          title={content.memoriesTitle}
+          subtitle={content.memoriesSubtitle}
+          items={content.memoryItems}
+        />
 
-        <Wishes intro={content.wishesIntro} partnerName={content.partnerName} wishes={content.wishes} />
+        <Wishes
+          eyebrow={content.wishesEyebrow}
+          title={content.wishesTitle}
+          intro={content.wishesIntro}
+          wishes={content.wishes}
+        />
 
         <Surprise
+          eyebrow={content.surpriseEyebrow}
+          title={content.surpriseTitle}
+          lede={content.surpriseLede}
           hugMessage={content.hugMessage}
           secretButtonLabel={content.secretButtonLabel}
           secretMessage={content.secretMessage}
@@ -116,8 +141,10 @@ export default function Home() {
         />
 
         <Closing
-          partnerName={content.partnerName}
-          senderName={content.senderName}
+          title={content.closingTitle}
+          paragraph={content.closingParagraph}
+          senders={content.senders}
+          replayLabel={content.replayLabel}
           photo={content.closingPhoto}
           onReplay={handleReplay}
         />

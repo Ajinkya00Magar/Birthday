@@ -9,14 +9,14 @@ import { playKeyTap, playPinSuccess, playPinWrong } from "./sound-effects";
 
 type PinScreenProps = {
   pin: string;
-  partnerName: string;
+  recipientName: string;
   hint?: string;
   onUnlock: () => void;
 };
 
 const KEYS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "back"];
 
-export default function PinScreen({ pin, partnerName, hint, onUnlock }: PinScreenProps) {
+export default function PinScreen({ pin, recipientName, hint, onUnlock }: PinScreenProps) {
   const [digits, setDigits] = useState<string[]>([]);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -26,7 +26,6 @@ export default function PinScreen({ pin, partnerName, hint, onUnlock }: PinScree
   const busyRef = useRef(false);
 
   const showHint = Boolean(hint) && wrongAttempts >= 2;
-
   const length = pin.length;
 
   useEffect(() => {
@@ -102,7 +101,7 @@ export default function PinScreen({ pin, partnerName, hint, onUnlock }: PinScree
   return (
     <div className="pin-screen" role="dialog" aria-modal="true" aria-label="Enter code to unlock">
       <LockIcon size={30} className="pin-screen__lock" />
-      <h1 className="pin-screen__title">A little something for {partnerName}</h1>
+      <h1 className="pin-screen__title">A little something for {recipientName}</h1>
       <p className="pin-screen__subtitle">Enter the code to unlock it 💛</p>
       {showHint ? <p className="pin-screen__hint">{hint}</p> : null}
 

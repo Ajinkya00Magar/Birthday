@@ -1,20 +1,20 @@
 import Reveal from "./Reveal";
 
 type LoveLetterProps = {
-  partnerName: string;
+  recipientName: string;
   senderName: string;
   paragraphs: string[];
 };
 
-export default function LoveLetter({ partnerName, senderName, paragraphs }: LoveLetterProps) {
+export default function LoveLetter({ recipientName, senderName, paragraphs }: LoveLetterProps) {
   return (
-    <section className="section section--pink" id="letter" aria-label="Love letter">
+    <section className="section section--pink" id="letter" aria-label={`Letter for ${recipientName}`}>
       <Reveal as="p" className="section__eyebrow">
         A little letter
       </Reveal>
 
       <Reveal as="div" className="letter">
-        <p className="letter__to">To {partnerName},</p>
+        <p className="letter__to">To {recipientName},</p>
 
         {paragraphs.map((paragraph, index) => (
           <Reveal as="p" key={index} delay={index * 120} className="letter__paragraph">
@@ -22,7 +22,7 @@ export default function LoveLetter({ partnerName, senderName, paragraphs }: Love
           </Reveal>
         ))}
 
-        <p className="letter__signature">With love, {senderName}</p>
+        <p className="letter__signature">With lots of love, {senderName}</p>
       </Reveal>
     </section>
   );

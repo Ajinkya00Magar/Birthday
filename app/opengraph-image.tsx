@@ -59,10 +59,10 @@ export default async function OpengraphImage() {
             padding: "0 60px",
           }}
         >
-          {`Happy Birthday, ${content.partnerName}`}
+          {`Happy Birthday, ${content.displayName}!`}
         </div>
-        <div style={{ display: "flex", fontSize: 30, fontWeight: 700, color: "#d8402b" }}>
-          A little digital gift, made just for you 💛
+        <div style={{ display: "flex", fontSize: 28, fontWeight: 700, color: "#d8402b" }}>
+          From Ajinkya, Rutvik, Dipika, Pranav & Omkar 💛
         </div>
       </div>
     ),

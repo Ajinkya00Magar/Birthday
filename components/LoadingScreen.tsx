@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { getLenis } from "./lenis-singleton";
+import { content } from "@/data/content";
 
 type LoadingScreenProps = {
   onDone: () => void;
@@ -19,9 +20,6 @@ export default function LoadingScreen({ onDone, minDuration = 1400 }: LoadingScr
   }, []);
 
   useEffect(() => {
-    // No fade-out of its own anymore — StageTransition (in page.tsx) now
-    // owns the visual exit via a slide, and it needs this screen to still
-    // be fully opaque when that slide starts, not already faded to nothing.
     const timer = window.setTimeout(onDone, minDuration);
     return () => window.clearTimeout(timer);
   }, [minDuration, onDone]);
@@ -36,7 +34,7 @@ export default function LoadingScreen({ onDone, minDuration = 1400 }: LoadingScr
         <span />
         <span />
       </div>
-      <p className="loading-screen__label">Wrapping up a little surprise…</p>
+      <p className="loading-screen__label">{content.loadingLabel}</p>
     </div>
   );
 }

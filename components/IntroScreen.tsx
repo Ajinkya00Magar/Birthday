@@ -5,15 +5,15 @@ import { gsap } from "gsap";
 import { GiftIcon } from "./icons";
 import { getLenis } from "./lenis-singleton";
 import { playGiftOpen } from "./sound-effects";
+import { content } from "@/data/content";
 
 type IntroScreenProps = {
-  partnerName: string;
   onOpened: () => void;
 };
 
 const BURST_SYMBOLS = ["🎉", "✨", "🎈", "🎊", "⭐", "🎉", "💛", "✨"];
 
-export default function IntroScreen({ partnerName, onOpened }: IntroScreenProps) {
+export default function IntroScreen({ onOpened }: IntroScreenProps) {
   const [closing, setClosing] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const giftRef = useRef<HTMLSpanElement>(null);
@@ -149,19 +149,17 @@ export default function IntroScreen({ partnerName, onOpened }: IntroScreenProps)
       data-closing={closing}
       role="dialog"
       aria-modal="true"
-      aria-label="Birthday gift opening screen"
+      aria-label="Birthday surprise opening screen"
     >
       <span className="intro__gift-symbol" aria-hidden="true" ref={giftRef}>
         🎁
       </span>
-      <h1 className="intro__title">
-        Happy birthday, <br /> {partnerName}
-      </h1>
-      <p className="intro__subtitle">There's a little gift I want to show you.</p>
+      <h1 className="intro__title">{content.introTitle}</h1>
+      <p className="intro__subtitle">{content.introSubtitle}</p>
 
       <button type="button" className="btn btn--primary intro__button" onClick={handleOpen}>
         <GiftIcon className="intro__gift" />
-        Open your gift
+        {content.introButtonLabel}
       </button>
 
       <div className="intro__burst" aria-hidden="true">
