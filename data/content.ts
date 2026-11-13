@@ -53,9 +53,9 @@ export const content = {
   // --- Group senders ---
   senders: ["Ajinkya", "Rutvik", "Dipika", "Pranav", "Omkar"] as string[],
 
-  // --- PIN lock: 1234567 ---
-  accessPin: "1234567" as string,
-  pinHint: "Hint: 1234567" as string,
+  // --- PIN lock: 14112007 ---
+  accessPin: "14112007" as string,
+  pinHint: "Hint: 14112007" as string,
 
   // --- Loading screen ---
   loadingLabel: "Putting together a little birthday chaos for Yogi…",
@@ -342,38 +342,38 @@ export const content = {
   albumRailTracks: [
     {
       id: "track-1",
-      title: "Happy Birthday Yogi (Whistle Snap)",
-      artist: "Theme Stars",
+      title: "Kho Gaye Hum Kahan",
+      artist: "Special Dedication For Yogi",
       coverSrc: "/photos/track-yogi-cafe.jpeg",
-      audioSrc: "/songs/Theme Stars - Happy Birthday to You (Whistle Snap).mp3",
+      audioSrc: "/songs/track1.mp3",
     },
     {
       id: "track-2",
-      title: "Fists Up & Deadlines",
-      artist: "Ajinkya, Rutvik & Yogi",
+      title: "Ilahi",
+      artist: "Birthday Vibes",
       coverSrc: "/photos/track-trio-fists.jpeg",
       audioSrc: "/songs/track2.mp3",
     },
     {
       id: "track-3",
-      title: "Under The Warm Bulbs",
-      artist: "The Core Trio",
+      title: "Happy Birthday Yogi",
+      artist: "Theme Stars",
       coverSrc: "/photos/track-trio-lights.jpeg",
-      audioSrc: "/songs/track3.mp3",
+      audioSrc: "/songs/Theme Stars - Happy Birthday to You (Whistle Snap).mp3",
     },
     {
       id: "track-4",
-      title: "Trophies & Certifications",
-      artist: "GDG Champs",
+      title: "Special Memory Track 1",
+      artist: "Ajinkya, Rutvik & Yogi",
       coverSrc: "/photos/track-gdg-trophy.jpeg",
-      audioSrc: "/songs/track4.mp3",
+      audioSrc: "/songs/track1.mp3",
     },
     {
       id: "track-5",
-      title: "Midnight Campus Talks",
+      title: "Special Memory Track 2",
       artist: "The Whole Gang",
       coverSrc: "/photos/track-night-squad.jpeg",
-      audioSrc: "/songs/track5.mp3",
+      audioSrc: "/songs/track2.mp3",
     },
   ] as AlbumTrack[],
 
