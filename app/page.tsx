@@ -50,8 +50,11 @@ export default function Home() {
   };
 
   const ajinkyaLetter = content.letters.find((l) => l.author === "Ajinkya") || content.letters[0];
+  const rutvikLetter = content.letters.find((l) => l.author === "Rutvik");
   const dipikaLetter = content.letters.find((l) => l.author === "Dipika") || content.letters[1];
-  const extraLetters = content.letters.filter((l) => l !== ajinkyaLetter && l !== dipikaLetter);
+  const extraLetters = content.letters.filter(
+    (l) => l !== ajinkyaLetter && l !== rutvikLetter && l !== dipikaLetter
+  );
 
   return (
     <>
@@ -81,6 +84,7 @@ export default function Home() {
           eyebrow={content.heroEyebrow}
           supportingLine={content.heroSupportingLine}
           photo={content.heroPhoto}
+          extraPhotos={content.heroExtraPhotos}
         />
 
         {ajinkyaLetter ? <LetterCard letter={ajinkyaLetter} colorClass="section--pink" /> : null}
@@ -92,10 +96,16 @@ export default function Home() {
           reasons={content.reasonsWhy}
         />
 
+        {rutvikLetter ? <LetterCard letter={rutvikLetter} colorClass="section--coral" /> : null}
+
         {dipikaLetter ? <LetterCard letter={dipikaLetter} colorClass="section--sun" /> : null}
 
-        {extraLetters.map((letter) => (
-          <LetterCard key={letter.author} letter={letter} colorClass="section--coral" />
+        {extraLetters.map((letter, idx) => (
+          <LetterCard
+            key={letter.author}
+            letter={letter}
+            colorClass={idx % 2 === 0 ? "section--turquoise" : "section--coral"}
+          />
         ))}
 
         <Gallery

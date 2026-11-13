@@ -372,6 +372,8 @@ a {
   text-align: center;
   padding: 32px 24px;
   gap: 4px;
+  overflow-y: auto;
+  max-height: 100dvh;
   background:
     radial-gradient(circle at 15% 15%, rgba(255, 226, 160, 0.35), transparent 45%),
     radial-gradient(circle at 85% 20%, rgba(47, 191, 176, 0.3), transparent 45%),
@@ -416,8 +418,22 @@ a {
 
 .pin-screen__dots {
   display: flex;
-  gap: 16px;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  max-width: 90vw;
   margin: 18px 0 4px;
+}
+
+@media (max-width: 480px) {
+  .pin-screen__dots {
+    gap: 8px;
+  }
+  .pin-screen__dots span {
+    width: 15px;
+    height: 15px;
+  }
 }
 
 .pin-screen__dots span {
@@ -845,6 +861,16 @@ a {
 
 .section--coral .letter::before {
   border-color: color-mix(in srgb, var(--color-coral) 45%, transparent);
+}
+
+.letter__photo-wrap {
+  margin: 0 auto 24px;
+  max-width: 290px;
+  width: 100%;
+}
+
+.letter__photo-wrap .photo-frame {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08);
 }
 
 .letter__heading {

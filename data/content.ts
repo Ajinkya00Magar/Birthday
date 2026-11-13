@@ -4,7 +4,7 @@
 // =============================================================
 
 export type Photo = {
-  /** Path to a photo/video file inside /public, e.g. "/photos/yogi-portrait.png". Leave "" for no photo yet. */
+  /** Path to a photo/video file inside /public, e.g. "/photos/yogi-hero-portrait.png". Leave "" for no photo yet. */
   src: string;
   alt: string;
   caption: string;
@@ -26,6 +26,8 @@ export type Letter = {
   paragraphs: string[];
   /** Closing line, e.g. "With lots of love," */
   closing: string;
+  /** Optional companion photo for the letter */
+  photo?: Photo;
 };
 
 export type AlbumTrack = {
@@ -51,9 +53,9 @@ export const content = {
   // --- Group senders ---
   senders: ["Ajinkya", "Rutvik", "Dipika", "Pranav", "Omkar"] as string[],
 
-  // --- Optional PIN lock. Leave "" to skip the lock screen. ---
-  accessPin: "" as string,
-  pinHint: "" as string,
+  // --- PIN lock: 1234567 ---
+  accessPin: "1234567" as string,
+  pinHint: "Hint: 1234567" as string,
 
   // --- Loading screen ---
   loadingLabel: "Putting together a little birthday chaos for Yogi…",
@@ -69,7 +71,7 @@ export const content = {
   heroSupportingLine:
     "Some people become part of a team. Some people make it feel like a family. You somehow managed to do both.",
 
-  // --- Letters (Ajinkya's note + Dipika's letter; add more later) ---
+  // --- Letters: Ajinkya, Rutvik, Dipika ---
   letters: [
     {
       author: "Ajinkya",
@@ -87,6 +89,38 @@ export const content = {
         "Happy birthday, Yogi. Keep smiling, keep being your wonderfully random self, and never underestimate how much you mean to the people around you.",
       ],
       closing: "With lots of love and respect, Ajinkya",
+      photo: {
+        src: "/photos/letter-ajinkya-duo.jpeg",
+        alt: "Ajinkya and Yogi laughing under warm lights with double peace signs",
+        caption: "From that first Umiya meeting to all these laughs.",
+      },
+    },
+    {
+      author: "Rutvik",
+      eyebrow: "In Alandi, the one and only girl I genuinely call my person",
+      heading: "A Letter From Rutvik",
+      paragraphs: [
+        "Happy Birthday, Yogi! ❤️🫂",
+        "Yogi, Yogi, Yogi… sirf meri Yogi!",
+        "Honestly, tujhe words mein express karna mere liye bahut difficult hai. I don't know how to explain what you mean to me, but the truth is, I make very few people mine. For me, friendship is a very general term, but my people are something entirely different. They are the people I can call at any hour, talk to without thinking twice, be completely stupid around, and still feel comfortable. And you are one of those very few people.",
+        "In Alandi, you're the one and only girl I genuinely call my person. I don't know how, but there's a different kind of comfort I feel around you. Your maturity, your understanding, your little stubbornness, your innocence and the way you care about the smallest things… everything about you feels so special.",
+        "You know what? I genuinely feel that God has blessed you with a beautiful heart. The way you consult me, the way you try to understand things, and the way you stand by me even in my weirdest moments means more than you probably realise.",
+        "There are days when I overthink, when my mind is full of unnecessary thoughts, and when I don't even know how to explain what's going on inside me. But somehow, talking to you gives me peace. You have this beautiful ability to make things feel lighter without even trying.",
+        "And Yogi, when you say something like, \"I want this, I need that,\" with that little stubbornness of yours, it genuinely makes me smile. I don't know why, but seeing you happy gives me a different kind of satisfaction. I might act rude, tease you, irritate you or behave like the weirdest person sometimes, but trust me, your happiness matters to me a lot.",
+        "I know I'm not the easiest person to understand. Sometimes I overthink, sometimes I act weird, sometimes I intentionally become difficult, and sometimes I don't express what I'm actually feeling. But I hope you always remember that none of this changes how special you are to me.",
+        "You are my comfort zone, my favourite human in this little Alandi world, and someone I genuinely feel proud of. I have faith in you, in your abilities, and in the person you're becoming.",
+        "I wish you never lose that spark in you. Keep that little stubbornness, that maturity, that beautiful smile and that childlike happiness alive. Keep growing, keep achieving, and never settle for anything less than what you deserve.",
+        "And one thing, Yogi… You don't have to do anything extraordinary to remain special. Just being YOU is enough.",
+        "I don't call you mine casually. It's just that some people feel like home, and you're one of them.",
+        "May this year bring you endless happiness, beautiful opportunities, peaceful nights, crazy adventures and everything your heart silently wishes for.",
+        "Happy Birthday once again, Yogi! Stay blessed, stay happy, and please never change that beautiful little version of yourself. You're special, Yogi. More than words can explain. ❤️",
+      ],
+      closing: "And haan… Yogi is Yogi. No replacement, no comparison. Just my Yogi. 🫂❤️ — Rutvik",
+      photo: {
+        src: "/photos/letter-rutvik-duo.jpeg",
+        alt: "Rutvik and Yogi smiling together at night",
+        caption: "Some people just feel like home.",
+      },
     },
     {
       author: "Dipika",
@@ -102,6 +136,11 @@ export const content = {
         "You are that core part of our team that only you can be, nobody else could ever replace you. So big cheers to our Yogeshwari! We are super proud of you, we believe in you, and we love youuu so much! I pray that you always stay like this — the genuine, sweet core you. Of course, growth and success are guaranteed, I don't have even 0.1% doubt about that, because you deserve every single thing you dream of. I really hope you keep smiling always, because that's the Yogeshwari we love the most. May negativity never touch you. Always stay healthy, super wealthy, and may your parents, family and friends always be as proud of you as we are today!",
       ],
       closing: "With lots of love, Dipika 💝",
+      photo: {
+        src: "/photos/letter-dipika-duo.jpeg",
+        alt: "Dipika hugging Yogi holding little toys together",
+        caption: "Bestie energy, straight up.",
+      },
     },
   ] as Letter[],
 
@@ -120,80 +159,116 @@ export const content = {
     "You are irreplaceably Yogi. Nobody else can bring exactly what you bring to this group.",
   ] as string[],
 
-  // --- Gallery section ---
+  // --- Photos at top of site (Solo and Duo) ---
+  heroPhoto: {
+    src: "/photos/yogi-hero-portrait.png",
+    alt: "Yogi smiling under warm hanging lights",
+    caption: "The birthday star herself",
+  } as Photo,
+  heroExtraPhotos: [
+    {
+      src: "/photos/hero-duo-pose.jpeg",
+      alt: "Yogi and friend posing with finger frame gestures",
+      caption: "The duo vibe: unmatched chaos",
+    },
+    {
+      src: "/photos/hero-solo-laugh.jpeg",
+      alt: "Yogi candid laugh in floral top",
+      caption: "That genuine, radiant Yogi smile",
+    },
+  ] as Photo[],
+
+  // --- Gallery section: 16 unique photos & videos ---
   galleryEyebrow: "Evidence of our collective lack of normal behaviour",
   galleryTitle: "The Yogi Archives",
   gallerySubtitle: "A few frames from all the chaos, smiles, and memories we are lucky to have.",
-  heroPhoto: {
-    src: "/photos/yogi-portrait.png",
-    alt: "Yogi smiling under warm hanging lights",
-    caption: "",
-  } as Photo,
   galleryPhotos: [
     {
-      src: "/photos/yogi-warm-lights.jpeg",
-      alt: "Portrait of Yogi under warm hanging lights",
-      caption: "A smile that deserves its own frame.",
+      src: "/photos/gallery-warm-duo.jpeg",
+      alt: "Yogi and friend under hanging lights making rock sign",
+      caption: "Golden lights, rock signs, and that signature Yogi grin.",
     },
     {
-      src: "/photos/office-selfie.jpeg",
-      alt: "Office selfie with Yogi and a teammate",
-      caption: "The office was not ready for this level of posing.",
+      src: "/photos/gallery-solo-trophy.jpeg",
+      alt: "Yogi in formal clothes standing by certificates and trophy",
+      caption: "Certificates, trophy, water bottles — the all-rounder who still says 'Maine kuch nahi kiya'.",
     },
     {
-      src: "/photos/roadside-selfie.jpeg",
-      alt: "Roadside selfie with Yogi making a peace sign",
-      caption: "One roadside selfie, one peace sign, and zero seriousness.",
+      src: "/photos/gallery-lab-duo.jpeg",
+      alt: "Yogi waving both hands next to friend in lab",
+      caption: "Waving away the stress in the lab.",
     },
     {
-      src: "/photos/duo-memory.jpeg",
-      alt: "A duo moment with Yogi and a friend",
-      caption: "A little duo moment.",
+      src: "/photos/gallery-napkin-peek.jpeg",
+      alt: "Yogi holding napkin over eyes playfully",
+      caption: "Peak peekaboo moment at the table.",
     },
     {
-      src: "/photos/red-wall-team.jpeg",
-      alt: "Wide group pose in front of a bright red illuminated background",
-      caption: "The crew, showing up in full dramatic mode.",
+      src: "/photos/gallery-red-wall.jpeg",
+      alt: "Friends posing dynamically in front of glowing red wall",
+      caption: "Showing up in full dramatic mode in front of the neon red wall.",
     },
     {
-      src: "/photos/team-certificates.jpeg",
-      alt: "Group photo with certificates",
-      caption: "The hard work, the certificates, and the smiles after.",
+      src: "/photos/gallery-mall-trio.jpeg",
+      alt: "Mall selfie of three friends with finger points",
+      caption: "One mall walk, multiple finger points, and completely non-serious posing.",
     },
     {
-      src: "/photos/group-circle-selfie.jpeg",
-      alt: "Group selfie near a large illuminated building entrance",
-      caption: "The group selfie angle was definitely a group decision.",
+      src: "/photos/gallery-playful-trio.jpeg",
+      alt: "Playful trio selfie sticking tongues out",
+      caption: "Trio pose: 10% posing, 90% laughing and sticking tongues out.",
     },
     {
-      src: "/photos/store-mirror-selfie.jpeg",
-      alt: "Portrait mirror selfie with friends posing in a store",
-      caption: "A mirror, several peace signs, and absolutely no normal poses.",
+      src: "/photos/gallery-chandelier-duo.jpeg",
+      alt: "Two friends smiling under warm bulb chandelier",
+      caption: "Chandelier lights and warm conversations.",
     },
     {
-      src: "/photos/warm-lights-team.jpeg",
-      alt: "Group photo beneath warm hanging lights",
-      caption: "Under the lights with the whole gang.",
+      src: "/photos/gallery-trophy-selfie.jpeg",
+      alt: "Selfie with trophy, Dipika and Yogi in purple",
+      caption: "The trophy smiles — Dipika, Yogi, Ajinkya, and teammate.",
     },
     {
-      src: "/photos/warm-lights-team-2.jpeg",
-      alt: "Wider group photograph under warm hanging lights",
-      caption: "One of those evenings we need to repeat.",
+      src: "/photos/gallery-certificates-squad.jpeg",
+      alt: "Team holding certificates in front of banner",
+      caption: "Proudly holding certificates after all the late-night work.",
     },
     {
-      src: "/photos/group-lights-1.jpeg",
-      alt: "Group photo under warm hanging lights",
-      caption: "Golden lights and familiar smiles.",
+      src: "/photos/gallery-call-screenshot.jpeg",
+      alt: "Late-night group video call screenshot",
+      caption: "Late-night group video calls when we all have too much to say.",
+    },
+    {
+      src: "/photos/gallery-circle-down.jpeg",
+      alt: "Six friends in circle looking down into camera",
+      caption: "The circle selfie from below — 6 heads, endless memories.",
+    },
+    {
+      src: "/photos/gallery-store-squad.jpeg",
+      alt: "Six friends taking a mirror selfie in a clothing store",
+      caption: "The Studio West mirror selfie that took 10 minutes to line up.",
+    },
+    {
+      src: "/photos/gallery-golden-squad.jpeg",
+      alt: "Five friends posing beneath warm light bulbs",
+      caption: "Surrounded by warm bulbs and the best crew.",
+    },
+    {
+      src: "/photos/gallery-lights-group.jpeg",
+      alt: "Four friends smiling under warm bulb setup",
+      caption: "One more frame from the evening under the warm bulbs.",
     },
     {
       src: "/photos/memory-video-3.mp4",
-      alt: "A short video memory with the group",
+      alt: "Short video memory with the crew",
       caption: "A day out with the people who make the memories.",
     },
   ] as Photo[],
+
+  // --- Closing section photo: grand squad outside illuminated entrance ---
   closingPhoto: {
-    src: "/photos/group-lights-2.jpeg",
-    alt: "The whole group together under warm lights",
+    src: "/photos/closing-grand-squad.jpeg",
+    alt: "All friends together smiling in front of the illuminated golden building",
     caption: "",
   } as Photo,
 
@@ -233,7 +308,7 @@ export const content = {
     },
   ] as TimelineEvent[],
 
-  // --- Appreciation section (replaces Distance) ---
+  // --- Appreciation section ---
   appreciationEyebrow: "What you bring into a room",
   appreciationTitle: "A Little More About You",
   appreciationParagraphs: [
@@ -242,7 +317,7 @@ export const content = {
     "We hope you know that the little things count too. The way you include people, the way you listen, the way you contribute, the way you make conversations feel easy — these things stay with people. You might think they are ordinary, but they are a big part of why we are so happy to have you around.",
   ] as string[],
 
-  // --- More Memories list (replaces Reunion bucket list) ---
+  // --- More Memories list ---
   memoriesEyebrow: "The plan from here",
   memoriesTitle: "More Memories, Please.",
   memoriesSubtitle: "A few things we are absolutely not done doing together.",
@@ -271,46 +346,45 @@ export const content = {
     "And selfishly, may we get many more years of your friendship, your random conversations and your very necessary presence in our chaos.",
   ] as string[],
 
-  // --- Album Rail / Soundtrack ---
-  // Paste your downloaded mp3 files into /public/songs/ or /public/music/
+  // --- Album Rail / Soundtrack (React Bits Pro component) ---
   albumRailEyebrow: "Our Vibe & Soundtrack",
   albumRailTitle: "Yogi's Album Rail",
   albumRailSubtitle:
-    "A fan of record sleeves with vinyl tucked inside. Tap or hover an album to slide the vinyl out and play the track.",
+    "A fan of record sleeves with vinyl tucked inside. Tap or hover an album to slide the vinyl out and play the track. Drop your downloaded songs in /public/songs/",
   albumRailTracks: [
     {
       id: "track-1",
-      title: "Memories at Umiya",
-      artist: "The Crew",
-      coverSrc: "/photos/yogi-portrait.png",
+      title: "Cafe & Deep Thoughts",
+      artist: "Yogi",
+      coverSrc: "/photos/track-yogi-cafe.jpeg",
       audioSrc: "/songs/track1.mp3",
     },
     {
       id: "track-2",
-      title: "Late Night Project Chaos",
-      artist: "SIH Team",
-      coverSrc: "/photos/office-selfie.jpeg",
+      title: "Fists Up & Deadlines",
+      artist: "Ajinkya, Rutvik & Yogi",
+      coverSrc: "/photos/track-trio-fists.jpeg",
       audioSrc: "/songs/track2.mp3",
     },
     {
       id: "track-3",
-      title: "Roadside & Peace Signs",
-      artist: "Ajinkya & Yogi",
-      coverSrc: "/photos/roadside-selfie.jpeg",
+      title: "Under The Warm Bulbs",
+      artist: "The Core Trio",
+      coverSrc: "/photos/track-trio-lights.jpeg",
       audioSrc: "/songs/track3.mp3",
     },
     {
       id: "track-4",
-      title: "Trophy & Certificates",
-      artist: "The Whole Gang",
-      coverSrc: "/photos/team-certificates.jpeg",
+      title: "Trophies & Certifications",
+      artist: "GDG Champs",
+      coverSrc: "/photos/track-gdg-trophy.jpeg",
       audioSrc: "/songs/track4.mp3",
     },
     {
       id: "track-5",
-      title: "Under The Warm Lights",
-      artist: "Friends Forever",
-      coverSrc: "/photos/warm-lights-team.jpeg",
+      title: "Midnight Campus Talks",
+      artist: "The Whole Gang",
+      coverSrc: "/photos/track-night-squad.jpeg",
       audioSrc: "/songs/track5.mp3",
     },
   ] as AlbumTrack[],
@@ -342,8 +416,6 @@ export const content = {
   replayLabel: "Watch our little surprise again",
 
   // --- Background music ---
-  // Add an mp3 to public/music/ and fill in the path, e.g. "/music/song.mp3".
-  // Leave empty to hide the music player.
   songUrl: "" as string,
   songTitle: "" as string,
 };

@@ -1,4 +1,5 @@
 import Reveal from "./Reveal";
+import PhotoFrame from "./PhotoFrame";
 import type { Letter } from "@/data/content";
 
 type LetterCardProps = {
@@ -18,10 +19,20 @@ export default function LetterCard({ letter, colorClass = "section--pink" }: Let
       </Reveal>
 
       <Reveal as="div" className="letter">
+        {letter.photo ? (
+          <div className="letter__photo-wrap">
+            <PhotoFrame
+              photo={letter.photo}
+              sizes="(min-width: 640px) 300px, 80vw"
+              showCaption={Boolean(letter.photo.caption)}
+            />
+          </div>
+        ) : null}
+
         <h2 className="letter__heading">{letter.heading}</h2>
 
         {letter.paragraphs.map((paragraph, index) => (
-          <Reveal as="p" key={index} delay={index * 100} className="letter__paragraph">
+          <Reveal as="p" key={index} delay={index * 50} className="letter__paragraph">
             {paragraph}
           </Reveal>
         ))}
@@ -31,4 +42,3 @@ export default function LetterCard({ letter, colorClass = "section--pink" }: Let
     </section>
   );
 }
-
