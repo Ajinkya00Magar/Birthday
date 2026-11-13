@@ -342,15 +342,15 @@ export const content = {
   albumRailTracks: [
     {
       id: "track-1",
-      title: "Special Memory Track 1",
-      artist: "Yogi's Special Vibe 🎵",
+      title: "Hey Beautiful",
+      artist: "For Yogi 💛",
       coverSrc: "/photos/track-yogi-cafe.jpeg",
       audioSrc: "/songs/track1.mp3",
     },
     {
       id: "track-2",
-      title: "Special Memory Track 2",
-      artist: "Yogi's Special Vibe 🎶",
+      title: "Yogi Hamari Yogi",
+      artist: "Our Person Always 🫂",
       coverSrc: "/photos/track-trio-fists.jpeg",
       audioSrc: "/songs/track2.mp3",
     },
@@ -363,14 +363,14 @@ export const content = {
     },
     {
       id: "track-4",
-      title: "Special Memory Track 1",
-      artist: "Ajinkya, Rutvik & Yogi",
+      title: "Trophies & Certifications",
+      artist: "GDG Champs",
       coverSrc: "/photos/track-gdg-trophy.jpeg",
       audioSrc: "/songs/track1.mp3",
     },
     {
       id: "track-5",
-      title: "Special Memory Track 2",
+      title: "Midnight Campus Talks",
       artist: "The Whole Gang",
       coverSrc: "/photos/track-night-squad.jpeg",
       audioSrc: "/songs/track2.mp3",
