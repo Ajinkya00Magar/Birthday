@@ -84,7 +84,6 @@ export default function Home() {
           eyebrow={content.heroEyebrow}
           supportingLine={content.heroSupportingLine}
           photo={content.heroPhoto}
-          extraPhotos={content.heroExtraPhotos}
         />
 
         {ajinkyaLetter ? <LetterCard letter={ajinkyaLetter} colorClass="section--pink" /> : null}

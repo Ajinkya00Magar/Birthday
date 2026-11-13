@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import Reveal from "./Reveal";
 import KineticText from "./KineticText";
-import { MusicIcon, PauseIcon, PlayIcon } from "./icons";
+import { MusicIcon, PlayIcon, PauseIcon } from "./icons";
 import type { AlbumTrack } from "@/data/content";
 
 type SoundtrackRailProps = {
@@ -22,7 +22,6 @@ export default function SoundtrackRail({
 }: SoundtrackRailProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [feedback, setFeedback] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const handleSelectTrack = (index: number) => {
@@ -36,10 +35,8 @@ export default function SoundtrackRail({
         if (track.audioSrc) {
           audioRef.current?.play().then(() => {
             setIsPlaying(true);
-            setFeedback(null);
           }).catch(() => {
             setIsPlaying(false);
-            setFeedback(`To play this track, paste "${track.audioSrc.replace(/^\//, "")}" into public/songs/`);
           });
         }
       }
@@ -49,7 +46,6 @@ export default function SoundtrackRail({
     // Switch track
     setActiveIndex(index);
     setIsPlaying(false);
-    setFeedback(null);
 
     if (audioRef.current) {
       audioRef.current.pause();
@@ -59,7 +55,6 @@ export default function SoundtrackRail({
         setIsPlaying(true);
       }).catch(() => {
         setIsPlaying(false);
-        setFeedback(`To play this track, paste "${track.audioSrc.replace(/^\//, "")}" into public/songs/`);
       });
     }
   };
@@ -162,17 +157,9 @@ export default function SoundtrackRail({
               {isPlaying ? "NOW SPINNING 🎵" : "SELECT TO PLAY 💿"}
             </span>
             <span className="album-player-track-name">{currentTrack.title}</span>
-            <span className="album-player-file-hint">Source: {currentTrack.audioSrc}</span>
           </div>
-        </Reveal>
-      ) : null}
-
-      {feedback ? (
-        <Reveal as="p" className="album-player-feedback" role="status">
-          💡 {feedback}
         </Reveal>
       ) : null}
     </section>
   );
 }
-

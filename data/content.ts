@@ -159,24 +159,12 @@ export const content = {
     "You are irreplaceably Yogi. Nobody else can bring exactly what you bring to this group.",
   ] as string[],
 
-  // --- Photos at top of site (Solo and Duo) ---
+  // --- Hero photo ---
   heroPhoto: {
     src: "/photos/yogi-hero-portrait.png",
     alt: "Yogi smiling under warm hanging lights",
     caption: "The birthday star herself",
   } as Photo,
-  heroExtraPhotos: [
-    {
-      src: "/photos/hero-duo-pose.jpeg",
-      alt: "Yogi and friend posing with finger frame gestures",
-      caption: "The duo vibe: unmatched chaos",
-    },
-    {
-      src: "/photos/hero-solo-laugh.jpeg",
-      alt: "Yogi candid laugh in floral top",
-      caption: "That genuine, radiant Yogi smile",
-    },
-  ] as Photo[],
 
   // --- Gallery section: 16 unique photos & videos ---
   galleryEyebrow: "Evidence of our collective lack of normal behaviour",
@@ -350,7 +338,7 @@ export const content = {
   albumRailEyebrow: "Our Vibe & Soundtrack",
   albumRailTitle: "Yogi's Album Rail",
   albumRailSubtitle:
-    "A fan of record sleeves with vinyl tucked inside. Tap or hover an album to slide the vinyl out and play the track. Drop your downloaded songs in /public/songs/",
+    "A fan of record sleeves with vinyl tucked inside. Tap or hover an album to slide the vinyl out and play the track.",
   albumRailTracks: [
     {
       id: "track-1",
