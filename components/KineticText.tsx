@@ -101,7 +101,7 @@ export default function KineticText({
   return (
     <Tag ref={ref} className={className}>
       {words.map((word, wordIndex) => {
-        const letters = word.split("").map((letter, letterIndex) => (
+        const letters = Array.from(word).map((letter, letterIndex) => (
           <span className="kinetic-letter" key={letterIndex}>
             {letter}
           </span>
