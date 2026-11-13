@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { content } from "@/data/content";
 import { getLenis } from "@/components/lenis-singleton";
 import StageTransition from "@/components/StageTransition";
@@ -23,15 +23,30 @@ import MusicPlayer from "@/components/MusicPlayer";
 
 type Stage = "loading" | "locked" | "intro" | "main";
 
+const PIN_STORAGE_KEY = "yogi_birthday_pin_unlocked";
+
 export default function Home() {
   const [stage, setStage] = useState<Stage>("loading");
   const [showMusicHint, setShowMusicHint] = useState(false);
   const [shouldPlayMusic, setShouldPlayMusic] = useState(false);
   const nextAfterLoading = useRef<"locked" | "intro">(content.accessPin ? "locked" : "intro");
 
+  useEffect(() => {
+    try {
+      if (typeof window !== "undefined" && localStorage.getItem(PIN_STORAGE_KEY) === "true") {
+        nextAfterLoading.current = "intro";
+      }
+    } catch {}
+  }, []);
+
   const handleLoadingDone = () => setStage(nextAfterLoading.current);
 
   const handleUnlock = () => {
+    try {
+      if (typeof window !== "undefined") {
+        localStorage.setItem(PIN_STORAGE_KEY, "true");
+      }
+    } catch {}
     setStage("intro");
   };
 
@@ -85,7 +100,8 @@ export default function Home() {
         </StageTransition>
       ) : null}
 
-      <main>
+      {stage === "intro" || stage === "main" ? (
+        <main>
         <Hero
           displayName={content.displayName}
           recipientName={content.recipientName}
@@ -178,13 +194,16 @@ export default function Home() {
           onReplay={handleReplay}
         />
       </main>
+      ) : null}
 
-      <MusicPlayer
-        songUrl={content.songUrl}
-        songTitle={content.songTitle}
-        showHint={showMusicHint}
-        shouldPlay={shouldPlayMusic}
-      />
+      {stage === "intro" || stage === "main" ? (
+        <MusicPlayer
+          songUrl={content.songUrl}
+          songTitle={content.songTitle}
+          showHint={showMusicHint}
+          shouldPlay={shouldPlayMusic}
+        />
+      ) : null}
     </>
   );
 }

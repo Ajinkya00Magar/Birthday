@@ -35,42 +35,80 @@ export default function SoundtrackRail({
 
   const handleSelectTrack = (index: number) => {
     const track = tracks[index];
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    const startSec = track.startTime ?? 20;
+
+    const applyStartTime = () => {
+      try {
+        if (audio.currentTime < startSec) {
+          audio.currentTime = startSec;
+        }
+      } catch {}
+    };
+
+    const playAudio = (source: string) => {
+      audio.src = source;
+      if (audio.readyState >= 1) {
+        applyStartTime();
+      } else {
+        audio.addEventListener("loadedmetadata", applyStartTime, { once: true });
+      }
+
+      audio
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+          applyStartTime();
+        })
+        .catch(() => {
+          const fallback = track.audioSrc.includes(".mpeg")
+            ? encodeURI(track.audioSrc.replace(/\.mpeg$/i, ".mp3"))
+            : track.audioSrc.includes("WhatsApp")
+            ? `/songs/track${index + 1}.mp3`
+            : null;
+          if (fallback && fallback !== source) {
+            playAudio(fallback);
+          } else {
+            setIsPlaying(false);
+          }
+        });
+    };
+
     if (activeIndex === index) {
-      // Toggle play/pause
+      // Toggle play/pause for the currently selected track
       if (isPlaying) {
-        audioRef.current?.pause();
+        audio.pause();
         setIsPlaying(false);
       } else {
-        if (track.audioSrc && audioRef.current) {
-          if (!audioRef.current.src || !audioRef.current.src.endsWith(track.audioSrc)) {
-            audioRef.current.src = track.audioSrc;
-            audioRef.current.load();
-          }
+        if (track.audioSrc) {
           window.dispatchEvent(new CustomEvent("pause-bg-music"));
-          audioRef.current.play().then(() => {
-            setIsPlaying(true);
-          }).catch(() => {
-            setIsPlaying(false);
-          });
+          const targetSrc = encodeURI(track.audioSrc);
+          if (!audio.src || !audio.src.includes(encodeURIComponent(track.audioSrc.replace(/^\//, "")))) {
+            playAudio(targetSrc);
+          } else {
+            if (audio.currentTime === 0 || audio.currentTime < startSec) {
+              applyStartTime();
+            }
+            audio
+              .play()
+              .then(() => setIsPlaying(true))
+              .catch(() => playAudio(targetSrc));
+          }
         }
       }
       return;
     }
 
-    // Switch track
+    // Switch to a new track and play immediately
     setActiveIndex(index);
+    window.dispatchEvent(new CustomEvent("pause-bg-music"));
+    audio.pause();
     setIsPlaying(false);
 
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.src = track.audioSrc;
-      audioRef.current.load();
-      window.dispatchEvent(new CustomEvent("pause-bg-music"));
-      audioRef.current.play().then(() => {
-        setIsPlaying(true);
-      }).catch(() => {
-        setIsPlaying(false);
-      });
+    if (track.audioSrc) {
+      playAudio(encodeURI(track.audioSrc));
     }
   };
 
@@ -93,7 +131,6 @@ export default function SoundtrackRail({
       {/* Hidden audio element for vinyl playback */}
       <audio
         ref={audioRef}
-        src={currentTrack?.audioSrc || ""}
         preload="none"
         onEnded={() => setIsPlaying(false)}
         onError={() => {
