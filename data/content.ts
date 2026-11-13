@@ -342,15 +342,15 @@ export const content = {
   albumRailTracks: [
     {
       id: "track-1",
-      title: "Kho Gaye Hum Kahan",
-      artist: "Special Dedication For Yogi",
+      title: "Special Memory Track 1",
+      artist: "Yogi's Special Vibe 🎵",
       coverSrc: "/photos/track-yogi-cafe.jpeg",
       audioSrc: "/songs/track1.mp3",
     },
     {
       id: "track-2",
-      title: "Ilahi",
-      artist: "Birthday Vibes",
+      title: "Special Memory Track 2",
+      artist: "Yogi's Special Vibe 🎶",
       coverSrc: "/photos/track-trio-fists.jpeg",
       audioSrc: "/songs/track2.mp3",
     },

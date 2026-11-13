@@ -35,42 +35,45 @@ export default function SoundtrackRail({
 
   const handleSelectTrack = (index: number) => {
     const track = tracks[index];
+    const audio = audioRef.current;
+    if (!audio) return;
+
     if (activeIndex === index) {
-      // Toggle play/pause
+      // Toggle play/pause for the currently selected track
       if (isPlaying) {
-        audioRef.current?.pause();
+        audio.pause();
         setIsPlaying(false);
       } else {
-        if (track.audioSrc && audioRef.current) {
-          if (!audioRef.current.src || !audioRef.current.src.endsWith(track.audioSrc)) {
-            audioRef.current.src = track.audioSrc;
-            audioRef.current.load();
-          }
+        if (track.audioSrc) {
+          audio.src = track.audioSrc;
           window.dispatchEvent(new CustomEvent("pause-bg-music"));
-          audioRef.current.play().then(() => {
-            setIsPlaying(true);
-          }).catch(() => {
-            setIsPlaying(false);
-          });
+          audio
+            .play()
+            .then(() => setIsPlaying(true))
+            .catch((err) => {
+              console.warn("Play error:", err);
+              setIsPlaying(false);
+            });
         }
       }
       return;
     }
 
-    // Switch track
+    // Switch to a new track and play immediately
     setActiveIndex(index);
+    audio.pause();
     setIsPlaying(false);
 
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.src = track.audioSrc;
-      audioRef.current.load();
+    if (track.audioSrc) {
+      audio.src = track.audioSrc;
       window.dispatchEvent(new CustomEvent("pause-bg-music"));
-      audioRef.current.play().then(() => {
-        setIsPlaying(true);
-      }).catch(() => {
-        setIsPlaying(false);
-      });
+      audio
+        .play()
+        .then(() => setIsPlaying(true))
+        .catch((err) => {
+          console.warn("Play error:", err);
+          setIsPlaying(false);
+        });
     }
   };
 
