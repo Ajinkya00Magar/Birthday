@@ -53,9 +53,9 @@ export const content = {
   // --- Group senders ---
   senders: ["Ajinkya", "Rutvik", "Dipika", "Pranav", "Omkar"] as string[],
 
-  // --- PIN lock: 1234567 ---
-  accessPin: "1234567" as string,
-  pinHint: "Hint: 1234567" as string,
+  // --- PIN lock: 14112007 ---
+  accessPin: "14112007" as string,
+  pinHint: "Hint: 14112007" as string,
 
   // --- Loading screen ---
   loadingLabel: "Putting together a little birthday chaos for Yogi…",

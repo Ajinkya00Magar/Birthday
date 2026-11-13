@@ -79,6 +79,7 @@ export default function SoundtrackRail({
       <audio
         ref={audioRef}
         src={currentTrack?.audioSrc || ""}
+        preload="none"
         onEnded={() => setIsPlaying(false)}
         onError={() => {
           setIsPlaying(false);
