@@ -100,7 +100,8 @@ export default function Home() {
         </StageTransition>
       ) : null}
 
-      <main>
+      {stage === "intro" || stage === "main" ? (
+        <main>
         <Hero
           displayName={content.displayName}
           recipientName={content.recipientName}
@@ -193,13 +194,16 @@ export default function Home() {
           onReplay={handleReplay}
         />
       </main>
+      ) : null}
 
-      <MusicPlayer
-        songUrl={content.songUrl}
-        songTitle={content.songTitle}
-        showHint={showMusicHint}
-        shouldPlay={shouldPlayMusic}
-      />
+      {stage === "intro" || stage === "main" ? (
+        <MusicPlayer
+          songUrl={content.songUrl}
+          songTitle={content.songTitle}
+          showHint={showMusicHint}
+          shouldPlay={shouldPlayMusic}
+        />
+      ) : null}
     </>
   );
 }
