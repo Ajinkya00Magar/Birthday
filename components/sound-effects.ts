@@ -110,3 +110,28 @@ export function playGiftOpen() {
 
   tone(ctx, 1200, t + 0.06, 0.15, "sine", 0.05);
 }
+
+/** A soft blowing whoosh followed by celebration chimes for blowing out cake candles. */
+export function playCandleBlow() {
+  const ctx = getContext();
+  if (!ctx) return;
+  const t = ctx.currentTime;
+
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(450, t);
+  osc.frequency.exponentialRampToValueAtTime(160, t + 0.35);
+  gain.gain.setValueAtTime(0.0001, t);
+  gain.gain.linearRampToValueAtTime(0.14, t + 0.05);
+  gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.38);
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start(t);
+  osc.stop(t + 0.4);
+
+  tone(ctx, 523.25, t + 0.32, 0.15, "sine", 0.12); // C5
+  tone(ctx, 659.25, t + 0.44, 0.15, "sine", 0.12); // E5
+  tone(ctx, 783.99, t + 0.56, 0.2, "sine", 0.13);  // G5
+  tone(ctx, 1046.5, t + 0.68, 0.42, "sine", 0.15); // C6
+}

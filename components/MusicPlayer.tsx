@@ -9,25 +9,53 @@ type MusicPlayerProps = {
   songTitle: string;
   /** Set true right when the gift opens, to prompt the visitor to hit play. */
   showHint?: boolean;
+  /** Triggered right after visitor clicks "Open your surprise" */
+  shouldPlay?: boolean;
 };
 
-export default function MusicPlayer({ songUrl, songTitle, showHint = false }: MusicPlayerProps) {
+export default function MusicPlayer({
+  songUrl,
+  songTitle,
+  showHint = false,
+  shouldPlay = false,
+}: MusicPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const hintRef = useRef<HTMLDivElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
-  const [loadError, setLoadError] = useState(false);
-  const [hintVisible, setHintVisible] = useState(false);
+  const userManuallyPausedRef = useRef<boolean>(false);
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [isMuted, setIsMuted] = useState<boolean>(false);
+  const [loadError, setLoadError] = useState<boolean>(false);
+  const [hintVisible, setHintVisible] = useState<boolean>(false);
   const hasSong = Boolean(songUrl);
+
+  // Start music right after the user clicks "Open your surprise"
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || !hasSong) return;
+
+    if (shouldPlay) {
+      if (!userManuallyPausedRef.current) {
+        audio
+          .play()
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((err) => {
+            console.warn("Autoplay deferred or blocked:", err);
+          });
+      }
+    } else {
+      audio.pause();
+      setIsPlaying(false);
+      userManuallyPausedRef.current = false;
+    }
+  }, [shouldPlay, hasSong]);
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
     if (isPlaying) {
-      audio.play().catch(() => {
-        setIsPlaying(false);
-        setLoadError(true);
-      });
+      audio.play().catch(() => {});
     } else {
       audio.pause();
     }
@@ -44,11 +72,11 @@ export default function MusicPlayer({ songUrl, songTitle, showHint = false }: Mu
   }, [songUrl]);
 
   useEffect(() => {
-    if (!showHint || !hasSong) return;
+    if (!showHint || !hasSong || isPlaying) return;
     setHintVisible(true);
     const timer = window.setTimeout(() => setHintVisible(false), 6000);
     return () => window.clearTimeout(timer);
-  }, [showHint, hasSong]);
+  }, [showHint, hasSong, isPlaying]);
 
   useEffect(() => {
     if (!hintVisible || !hintRef.current) return;
@@ -76,9 +104,9 @@ export default function MusicPlayer({ songUrl, songTitle, showHint = false }: Mu
 
   return (
     <div className="music-player" aria-label="Background music player">
-      {hintVisible ? (
+      {hintVisible && !isPlaying ? (
         <div className="music-player__hint" ref={hintRef} role="status">
-          <span className="music-player__hint-text">🎵 There's a song for this, tap play!</span>
+          <span className="music-player__hint-text">🎵 Tap to play your birthday song!</span>
         </div>
       ) : null}
 
@@ -86,7 +114,7 @@ export default function MusicPlayer({ songUrl, songTitle, showHint = false }: Mu
         ref={audioRef}
         src={songUrl}
         loop
-        preload="none"
+        preload="auto"
         onError={() => {
           setIsPlaying(false);
           setLoadError(true);
@@ -97,7 +125,13 @@ export default function MusicPlayer({ songUrl, songTitle, showHint = false }: Mu
         type="button"
         className="btn btn--icon music-player__btn"
         onClick={() => {
-          setIsPlaying((value) => !value);
+          if (isPlaying) {
+            userManuallyPausedRef.current = true;
+            setIsPlaying(false);
+          } else {
+            userManuallyPausedRef.current = false;
+            setIsPlaying(true);
+          }
           dismissHint();
         }}
         aria-pressed={isPlaying}
@@ -123,7 +157,7 @@ export default function MusicPlayer({ songUrl, songTitle, showHint = false }: Mu
 
       {loadError ? (
         <span className="music-player__label music-player__label--error">
-          Can't play this link. It needs to be a direct audio file (.mp3), not a page link.
+          Can't play this audio file. Please check that the file is available in public/songs.
         </span>
       ) : (
         <span className="music-player__label">{songTitle}</span>
