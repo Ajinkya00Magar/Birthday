@@ -36,6 +36,7 @@ export type AlbumTrack = {
   artist: string;
   coverSrc: string;
   audioSrc: string;
+  startTime?: number;
 };
 
 export const content = {
@@ -346,17 +347,19 @@ export const content = {
   albumRailTracks: [
     {
       id: "track-1",
-      title: "Kho Gaye Hum Kahan",
-      artist: "Special Dedication For Yogi",
+      title: "Hey Beautiful",
+      artist: "For Yogi 💛",
       coverSrc: "/photos/track-yogi-cafe.jpeg",
-      audioSrc: "/songs/track1.mp3",
+      audioSrc: "/songs/WhatsApp Audio 2026-11-14 at 12.55.40 AM.mp3",
+      startTime: 20,
     },
     {
       id: "track-2",
-      title: "Ilahi",
-      artist: "Birthday Vibes",
+      title: "Yogi Hamari Yogi",
+      artist: "Our Person Always 🫂",
       coverSrc: "/photos/track-trio-fists.jpeg",
-      audioSrc: "/songs/track2.mp3",
+      audioSrc: "/songs/WhatsApp Audio 2026-11-14 at 1.00.34 AM.mp3",
+      startTime: 20,
     },
     {
       id: "track-3",
@@ -364,20 +367,23 @@ export const content = {
       artist: "The Core Trio",
       coverSrc: "/photos/track-trio-lights.jpeg",
       audioSrc: "/songs/track3.mp3",
+      startTime: 20,
     },
     {
       id: "track-4",
       title: "Trophies & Certifications",
       artist: "GDG Champs",
       coverSrc: "/photos/track-gdg-trophy.jpeg",
-      audioSrc: "/songs/track4.mp3",
+      audioSrc: "/songs/WhatsApp Audio 2026-11-14 at 12.55.40 AM.mp3",
+      startTime: 20,
     },
     {
       id: "track-5",
       title: "Midnight Campus Talks",
       artist: "The Whole Gang",
       coverSrc: "/photos/track-night-squad.jpeg",
-      audioSrc: "/songs/track5.mp3",
+      audioSrc: "/songs/WhatsApp Audio 2026-11-14 at 1.00.34 AM.mp3",
+      startTime: 20,
     },
   ] as AlbumTrack[],
 

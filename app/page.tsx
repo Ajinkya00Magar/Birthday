@@ -24,6 +24,8 @@ import MusicPlayer from "@/components/MusicPlayer";
 type Stage = "loading" | "locked" | "intro" | "main";
 type AuthMode = "personal" | "public";
 
+const PIN_STORAGE_KEY = "yogi_birthday_pin_unlocked";
+
 export default function Home() {
   const [stage, setStage] = useState<Stage>("loading");
   const [authMode, setAuthMode] = useState<AuthMode>("personal");
@@ -34,6 +36,7 @@ export default function Home() {
   useEffect(() => {
     try {
       localStorage.removeItem("birthday_auth_mode");
+      localStorage.removeItem("birthday_unlocked_v1");
     } catch {
       // localStorage may fail in restricted environments
     }
@@ -121,8 +124,8 @@ export default function Home() {
         </StageTransition>
       ) : null}
 
-      <main>
-        {/* Hero Section */}
+      {stage === "intro" || stage === "main" ? (
+        <main>
         <Hero
           displayName={activeContent.displayName}
           recipientName={activeContent.recipientName}
@@ -242,13 +245,16 @@ export default function Home() {
           lockLabel="Lock / Switch Mode"
         />
       </main>
+      ) : null}
 
-      <MusicPlayer
-        songUrl={content.songUrl}
-        songTitle={content.songTitle}
-        showHint={showMusicHint}
-        shouldPlay={shouldPlayMusic}
-      />
+      {stage === "intro" || stage === "main" ? (
+        <MusicPlayer
+          songUrl={content.songUrl}
+          songTitle={content.songTitle}
+          showHint={showMusicHint}
+          shouldPlay={shouldPlayMusic}
+        />
+      ) : null}
     </>
   );
 }
