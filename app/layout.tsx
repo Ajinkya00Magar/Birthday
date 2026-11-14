@@ -4,8 +4,8 @@ import SmoothScroll from "@/components/SmoothScroll";
 import CursorTrail from "@/components/CursorTrail";
 import "./globals.css";
 
-const title = `Happy Birthday, ${content.displayName}! 🎂`;
-const description = "For our Yogi — from Ajinkya, Rutvik, Dipika, Pranav & Omkar 💛";
+const title = `Happy Birthday, Yogeshwari! 🎂`;
+const description = "A special birthday celebration for Yogeshwari 💛";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://birthday-yogi.vercel.app"),

@@ -30,14 +30,10 @@ export default function Home() {
   const [showMusicHint, setShowMusicHint] = useState(false);
   const [shouldPlayMusic, setShouldPlayMusic] = useState(false);
 
-  // Restore authenticated view on page reload directly to home page (main)
+  // Ensure the website starts fresh at the code input screen
   useEffect(() => {
     try {
-      const savedAuth = localStorage.getItem("birthday_auth_mode") as AuthMode | null;
-      if (savedAuth === "personal" || savedAuth === "public") {
-        setAuthMode(savedAuth);
-        setStage("main");
-      }
+      localStorage.removeItem("birthday_auth_mode");
     } catch {
       // localStorage may fail in restricted environments
     }
@@ -106,7 +102,7 @@ export default function Home() {
             <PinScreen
               personalPin={content.personalPin || "14112007"}
               publicPin={content.publicPin || "02102005"}
-              recipientName={activeContent.displayName}
+              recipientName="Yogeshwari"
               hint={content.pinHint}
               securityQuestion={content.securityQuestion || "What do we call you?"}
               securityAnswer={content.securityAnswer || "yogi"}

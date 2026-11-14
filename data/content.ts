@@ -62,7 +62,7 @@ export const content = {
   pinHint: "Enter code (14112007 or 02102005)" as string,
 
   // --- Loading screen ---
-  loadingLabel: "Putting together a little birthday chaos for Yogi…",
+  loadingLabel: "Putting together a little birthday celebration for Yogeshwari…",
 
   // --- Gift-opening intro screen ---
   introTitle: "Yogiiii, this one's for you.",
