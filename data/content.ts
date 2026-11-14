@@ -420,7 +420,7 @@ export const publicContent = {
   birthdayDate: "" as string,
 
   // --- Group senders ---
-  senders: ["College Friends", "Tech Community", "Batchmates", "Project Crew"] as string[],
+  senders: ["Friends & Well-Wishers"] as string[],
 
   // --- Loading screen ---
   loadingLabel: "Putting together a birthday celebration for Yogeshwari…",
@@ -428,51 +428,36 @@ export const publicContent = {
   // --- Gift-opening intro screen ---
   introTitle: "Yogeshwari, this one's for you.",
   introSubtitle:
-    "A celebration of talent, dedication, brilliant achievements, and great memories. We made you a special tribute.",
-  introButtonLabel: "Open the celebration",
+    "A special birthday celebration filled with smiles, happiness, and heartfelt wishes.",
+  introButtonLabel: "Open your surprise",
 
   // --- Hero section ---
-  heroEyebrow: "A celebratory birthday tribute",
+  heroEyebrow: "A little celebration for someone special",
   heroSupportingLine:
-    "Celebrating an exceptional mind, an inspiring teammate, and a genuinely wonderful person on her special day.",
+    "Celebrating a wonderful person on her special day with endless happiness, smiles, and best wishes.",
   heroPhoto: {
     src: "/photos/yogi-hero-portrait.png",
     alt: "Yogeshwari smiling brightly",
-    caption: "Celebrating Yogeshwari on her special day ✨",
+    caption: "The birthday star herself ✨",
   } as Photo,
 
-  // --- Public Letters / Celebration Tributes (non-personal, inspiring) ---
+  // --- Exactly ONE sincere, genuine public birthday message card ---
   letters: [
     {
-      author: "College Friends & Batchmates",
-      eyebrow: "Celebrating Excellence, Humour & Energy",
-      heading: "To Our Invaluable Star",
+      author: "Friends & Well-Wishers",
+      eyebrow: "Warm Birthday Wishes",
+      heading: "Wishing You The Happiest Birthday!",
       paragraphs: [
-        "Happy Birthday, Yogeshwari! Today is all about celebrating someone who brings infectious energy, sharp logic, and genuine positivity into every room she enters.",
-        "Whether it's tackling intense project deliverables, brainstorming solutions, or turning stressful deadlines into fun moments with spontaneous jokes, you handle every challenge with immense poise and competence.",
-        "You have an extraordinary ability to keep people grounded and smiling. May this upcoming year bring you incredible achievements, prestigious opportunities, and all the joy your heart desires!",
+        "Happy Birthday, Yogeshwari!",
+        "Today is all about celebrating you — your bright smile, your kind heart, and the wonderful energy you bring wherever you go.",
+        "May this special day bring you immense joy, laughter, and beautiful moments with everyone you cherish.",
+        "Wishing you endless happiness, good health, great success, and an extraordinary year ahead!",
       ],
-      closing: "With warmest regards & best wishes ✨",
+      closing: "Have an unforgettable birthday! 🎂✨",
       photo: {
         src: "/photos/yogi-solo-smile.jpeg",
         alt: "Yogeshwari smiling radiantly",
-        caption: "Always bringing that radiant, contagious smile.",
-      },
-    },
-    {
-      author: "The Project & Tech Crew",
-      eyebrow: "Dedication, Talent & Team Spirit",
-      heading: "A Champion In Every Sense",
-      paragraphs: [
-        "To the person who consistently delivers high-impact work, supports everyone around her, and still humbly insists 'Maine kuch nahi kiya' — we see the dedication and brilliance you put into everything.",
-        "From hackathons and coding milestones to GDG tech meetups and stage events, having you on the team elevates the whole experience. You are both the sensible anchor and the reason people laugh.",
-        "Keep dreaming big, achieving grand milestones, and inspiring everyone around you. Have an unforgettable birthday!",
-      ],
-      closing: "Cheers to a phenomenal year ahead! 🚀🎉",
-      photo: {
-        src: "/photos/team-certificates.jpeg",
-        alt: "Team celebration with certificates",
-        caption: "Team wins and celebrations across the milestones.",
+        caption: "Wishing you endless smiles on your special day.",
       },
     },
   ] as Letter[],
@@ -716,7 +701,7 @@ export const publicContent = {
   // --- Closing ---
   closingTitle: "Happy Birthday, Yogeshwari!",
   closingParagraph:
-    "Thank you for being such an inspiring, hardworking, and joyful person. May this milestone year bring you grand opportunities, beautiful memories, and all the success in the world.",
+    "Wishing you a fantastic birthday and a wonderful year ahead filled with smiles, good health, and success in everything you do.",
   closingPhoto: {
     src: "/photos/closing-grand-squad.jpeg",
     alt: "Celebration group photo outside illuminated building",

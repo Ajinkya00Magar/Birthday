@@ -157,77 +157,84 @@ export default function Home() {
           );
         })}
 
-        {/* Reasons Why Section */}
-        <ReasonsWhy
-          eyebrow={activeContent.reasonsEyebrow}
-          title={activeContent.reasonsTitle}
-          lede={activeContent.reasonsLede}
-          reasons={activeContent.reasonsWhy}
-        />
+        {/* Sections for Personal View only */}
+        {!isPublic ? (
+          <>
+            {/* Reasons Why Section */}
+            <ReasonsWhy
+              eyebrow={activeContent.reasonsEyebrow}
+              title={activeContent.reasonsTitle}
+              lede={activeContent.reasonsLede}
+              reasons={activeContent.reasonsWhy}
+            />
 
-        {/* Gallery Section */}
-        <Gallery
-          eyebrow={activeContent.galleryEyebrow}
-          title={activeContent.galleryTitle}
-          subtitle={activeContent.gallerySubtitle}
-          photos={activeContent.galleryPhotos}
-        />
+            {/* Gallery Section */}
+            <Gallery
+              eyebrow={activeContent.galleryEyebrow}
+              title={activeContent.galleryTitle}
+              subtitle={activeContent.gallerySubtitle}
+              photos={activeContent.galleryPhotos}
+            />
 
-        {/* Timeline / Milestones Section */}
-        {activeContent.timeline && activeContent.timeline.length > 0 ? (
-          <Timeline
-            eyebrow={activeContent.timelineEyebrow}
-            title={activeContent.timelineTitle}
-            events={activeContent.timeline}
+            {/* Timeline / Milestones Section */}
+            {activeContent.timeline && activeContent.timeline.length > 0 ? (
+              <Timeline
+                eyebrow={activeContent.timelineEyebrow}
+                title={activeContent.timelineTitle}
+                events={activeContent.timeline}
+              />
+            ) : null}
+
+            {/* Appreciation Section */}
+            <Appreciation
+              eyebrow={activeContent.appreciationEyebrow}
+              title={activeContent.appreciationTitle}
+              paragraphs={activeContent.appreciationParagraphs}
+            />
+
+            {/* More Memories Section */}
+            <MoreMemories
+              eyebrow={activeContent.memoriesEyebrow}
+              title={activeContent.memoriesTitle}
+              subtitle={activeContent.memoriesSubtitle}
+              items={activeContent.memoryItems}
+            />
+
+            {/* Vinyl Soundtrack Rail Section */}
+            <SoundtrackRail
+              eyebrow={activeContent.albumRailEyebrow}
+              title={activeContent.albumRailTitle}
+              subtitle={activeContent.albumRailSubtitle}
+              tracks={activeContent.albumRailTracks}
+            />
+
+            {/* Wishes Section */}
+            <Wishes
+              eyebrow={activeContent.wishesEyebrow}
+              title={activeContent.wishesTitle}
+              intro={activeContent.wishesIntro}
+              wishes={activeContent.wishes}
+            />
+          </>
+        ) : null}
+
+        {/* Interactive Birthday Cake (Present in both views) */}
+        <BirthdayCake recipientName={activeContent.displayName} />
+
+        {/* Surprise Section (Personal View only) */}
+        {!isPublic ? (
+          <Surprise
+            eyebrow={activeContent.surpriseEyebrow}
+            title={activeContent.surpriseTitle}
+            lede={activeContent.surpriseLede}
+            hugMessage={activeContent.hugMessage}
+            secretButtonLabel={activeContent.secretButtonLabel}
+            secretMessage={activeContent.secretMessage}
+            sweetLines={activeContent.sweetLines}
           />
         ) : null}
 
-        {/* Appreciation Section */}
-        <Appreciation
-          eyebrow={activeContent.appreciationEyebrow}
-          title={activeContent.appreciationTitle}
-          paragraphs={activeContent.appreciationParagraphs}
-        />
-
-        {/* More Memories Section */}
-        <MoreMemories
-          eyebrow={activeContent.memoriesEyebrow}
-          title={activeContent.memoriesTitle}
-          subtitle={activeContent.memoriesSubtitle}
-          items={activeContent.memoryItems}
-        />
-
-        {/* Vinyl Soundtrack Rail Section */}
-        <SoundtrackRail
-          eyebrow={activeContent.albumRailEyebrow}
-          title={activeContent.albumRailTitle}
-          subtitle={activeContent.albumRailSubtitle}
-          tracks={activeContent.albumRailTracks}
-        />
-
-        {/* Wishes Section */}
-        <Wishes
-          eyebrow={activeContent.wishesEyebrow}
-          title={activeContent.wishesTitle}
-          intro={activeContent.wishesIntro}
-          wishes={activeContent.wishes}
-        />
-
-        {/* Interactive Birthday Cake */}
-        <BirthdayCake recipientName={activeContent.displayName} />
-
-        {/* Surprise Section */}
-        <Surprise
-          eyebrow={activeContent.surpriseEyebrow}
-          title={activeContent.surpriseTitle}
-          lede={activeContent.surpriseLede}
-          hugMessage={activeContent.hugMessage}
-          secretButtonLabel={activeContent.secretButtonLabel}
-          secretMessage={activeContent.secretMessage}
-          sweetLines={activeContent.sweetLines}
-        />
-
-        {/* Closing Section */}
+        {/* Closing Section (Present in both views) */}
         <Closing
           title={activeContent.closingTitle}
           paragraph={activeContent.closingParagraph}
