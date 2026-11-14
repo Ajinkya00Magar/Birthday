@@ -412,4 +412,321 @@ export const content = {
   songTitle: "Happy Birthday to You (Whistle Snap)" as string,
 };
 
+export const publicContent = {
+  // --- Identity ---
+  displayName: "Yogeshwari",
+  recipientName: "Yogeshwari Thombare",
+  age: "" as string,
+  birthdayDate: "" as string,
+
+  // --- Group senders ---
+  senders: ["College Friends", "Tech Community", "Batchmates", "Project Crew"] as string[],
+
+  // --- Loading screen ---
+  loadingLabel: "Putting together a birthday celebration for Yogeshwari…",
+
+  // --- Gift-opening intro screen ---
+  introTitle: "Yogeshwari, this one's for you.",
+  introSubtitle:
+    "A celebration of talent, dedication, brilliant achievements, and great memories. We made you a special tribute.",
+  introButtonLabel: "Open the celebration",
+
+  // --- Hero section ---
+  heroEyebrow: "A celebratory birthday tribute",
+  heroSupportingLine:
+    "Celebrating an exceptional mind, an inspiring teammate, and a genuinely wonderful person on her special day.",
+  heroPhoto: {
+    src: "/photos/yogi-hero-portrait.png",
+    alt: "Yogeshwari smiling brightly",
+    caption: "Celebrating Yogeshwari on her special day ✨",
+  } as Photo,
+
+  // --- Public Letters / Celebration Tributes (non-personal, inspiring) ---
+  letters: [
+    {
+      author: "College Friends & Batchmates",
+      eyebrow: "Celebrating Excellence, Humour & Energy",
+      heading: "To Our Invaluable Star",
+      paragraphs: [
+        "Happy Birthday, Yogeshwari! Today is all about celebrating someone who brings infectious energy, sharp logic, and genuine positivity into every room she enters.",
+        "Whether it's tackling intense project deliverables, brainstorming solutions, or turning stressful deadlines into fun moments with spontaneous jokes, you handle every challenge with immense poise and competence.",
+        "You have an extraordinary ability to keep people grounded and smiling. May this upcoming year bring you incredible achievements, prestigious opportunities, and all the joy your heart desires!",
+      ],
+      closing: "With warmest regards & best wishes ✨",
+      photo: {
+        src: "/photos/yogi-solo-smile.jpeg",
+        alt: "Yogeshwari smiling radiantly",
+        caption: "Always bringing that radiant, contagious smile.",
+      },
+    },
+    {
+      author: "The Project & Tech Crew",
+      eyebrow: "Dedication, Talent & Team Spirit",
+      heading: "A Champion In Every Sense",
+      paragraphs: [
+        "To the person who consistently delivers high-impact work, supports everyone around her, and still humbly insists 'Maine kuch nahi kiya' — we see the dedication and brilliance you put into everything.",
+        "From hackathons and coding milestones to GDG tech meetups and stage events, having you on the team elevates the whole experience. You are both the sensible anchor and the reason people laugh.",
+        "Keep dreaming big, achieving grand milestones, and inspiring everyone around you. Have an unforgettable birthday!",
+      ],
+      closing: "Cheers to a phenomenal year ahead! 🚀🎉",
+      photo: {
+        src: "/photos/team-certificates.jpeg",
+        alt: "Team celebration with certificates",
+        caption: "Team wins and celebrations across the milestones.",
+      },
+    },
+  ] as Letter[],
+
+  // --- Reasons Why ---
+  reasonsEyebrow: "Why Yogeshwari is celebrated",
+  reasonsTitle: "Reasons Why You Inspire Everyone Around You",
+  reasonsLede: "A few reminders of the impact, energy, and leadership you bring to every space.",
+  reasonsWhy: [
+    "Natural Leadership — You know how to guide a team through uncertainty and deliver with poise.",
+    "Effortless Humour — In the middle of any high-stress deadline, your spontaneous humour brings instant relief.",
+    "Humility with Pure Talent — Balancing hard work and technical skill while staying completely down to earth.",
+    "The All-Rounder Spirit — Managing presentations, development, team coordination, and social vibes seamlessly.",
+    "An Inclusive Presence — You naturally make everyone feel welcomed, heard, and appreciated.",
+  ] as string[],
+
+  // --- Gallery: 18 non-personal, vibrant photos ---
+  galleryEyebrow: "Moments, milestones, and celebrations",
+  galleryTitle: "The Yogeshwari Archives",
+  gallerySubtitle: "A vibrant collection of smiles, college days, team wins, and cheerful memories.",
+  galleryPhotos: [
+    {
+      src: "/photos/yogi-solo-smile.jpeg",
+      alt: "Yogeshwari radiant portrait",
+      caption: "That radiant smile that lights up every room.",
+    },
+    {
+      src: "/photos/gallery-solo-trophy.jpeg",
+      alt: "Yogeshwari holding certificates and trophy",
+      caption: "Certificates, trophy, and triumphs — the star all-rounder.",
+    },
+    {
+      src: "/photos/yogi-campus-walk.jpeg",
+      alt: "Yogeshwari campus stroll",
+      caption: "Sunny campus strolls and between-class laughter.",
+    },
+    {
+      src: "/photos/yogi-traditional-look.jpeg",
+      alt: "Yogeshwari in festive traditional attire",
+      caption: "Graceful festive celebration and traditional elegance.",
+    },
+    {
+      src: "/photos/gallery-napkin-peek.jpeg",
+      alt: "Playful peekaboo moment",
+      caption: "Unscripted, playful joy at the table.",
+    },
+    {
+      src: "/photos/yogi-coffee-moment.jpeg",
+      alt: "Coffee moment and calm conversation",
+      caption: "Coffee breaks, cheerful chats, and unwinding after class.",
+    },
+    {
+      src: "/photos/gallery-mall-trio.jpeg",
+      alt: "Mall selfie of three friends",
+      caption: "Fun city outings, good food, and carefree smiles.",
+    },
+    {
+      src: "/photos/gallery-playful-trio.jpeg",
+      alt: "Playful cheerful trio selfie",
+      caption: "Good company, endless laughter, and candid memories.",
+    },
+    {
+      src: "/photos/yogi-laughing-candid.jpeg",
+      alt: "Candid laugh of Yogeshwari",
+      caption: "Pure, genuine laughter that makes every day brighter.",
+    },
+    {
+      src: "/photos/gallery-trophy-selfie.jpeg",
+      alt: "Selfie holding the competition trophy",
+      caption: "Winning moments and trophy celebrations after all the effort.",
+    },
+    {
+      src: "/photos/gdg-event-audience.jpeg",
+      alt: "Tech community event audience",
+      caption: "Community meetups, tech workshops, and collaborative learning.",
+    },
+    {
+      src: "/photos/gallery-circle-down.jpeg",
+      alt: "Circle selfie looking down",
+      caption: "The signature circle selfie — shared memories and bond.",
+    },
+    {
+      src: "/photos/gallery-store-squad.jpeg",
+      alt: "Store mirror selfie with friends",
+      caption: "The classic mirror squad frame after an adventurous day out.",
+    },
+    {
+      src: "/photos/yogi-celebration-cheer.jpeg",
+      alt: "Celebration cheer moment",
+      caption: "Cheering for every milestone and shared victory.",
+    },
+    {
+      src: "/photos/gallery-golden-squad.jpeg",
+      alt: "Friends posing under warm hanging light bulbs",
+      caption: "Evenings illuminated with warm lights and great conversations.",
+    },
+    {
+      src: "/photos/gallery-lights-group.jpeg",
+      alt: "Four friends smiling under ambient lights",
+      caption: "Surrounded by festive ambient lights and wonderful peers.",
+    },
+    {
+      src: "/photos/yogi-outdoor-sunshine.jpeg",
+      alt: "Outdoor sunshine portrait of Yogeshwari",
+      caption: "Basking in the golden sunshine and positive vibes.",
+    },
+    {
+      src: "/photos/campus-hallway-stroll.jpeg",
+      alt: "College hallway candid moment",
+      caption: "College journey, campus steps, and bright futures ahead.",
+    },
+  ] as Photo[],
+
+  // --- Milestones Timeline (non-personal college journey) ---
+  timelineEyebrow: "A journey of learning, community & growth",
+  timelineTitle: "Milestones, College Days & Beyond",
+  timeline: [
+    {
+      date: "College Days Begin",
+      description: "Stepping onto campus, taking on new academic adventures, and forming lasting friendships.",
+    },
+    {
+      date: "Tech Community & GDG",
+      description: "Active engagement in technical clubs, organizing events, and inspiring fellow students.",
+    },
+    {
+      date: "Hackathons & Innovation",
+      description: "Late-night coding sprints, high-energy brainstorming, and building impressive project prototypes.",
+    },
+    {
+      date: "Trophy & Certificate Wins",
+      description: "Receiving accolades and recognition for outstanding team contributions and innovation.",
+    },
+    {
+      date: "The Balancing Act",
+      description: "Masterfully juggling coursework, leadership roles, and keeping the environment full of positivity.",
+    },
+    {
+      date: "Grand Horizons Ahead",
+      description: "A future filled with remarkable career milestones, incredible adventures, and boundless success.",
+    },
+  ] as TimelineEvent[],
+
+  // --- Appreciation ---
+  appreciationEyebrow: "The value you bring",
+  appreciationTitle: "A Dedicated Pillar of Positivity",
+  appreciationParagraphs: [
+    "There are individuals who make a team productive, and then there are those who make it genuinely uplifting to be part of the journey. Yogeshwari effortlessly does both.",
+    "When challenges arise, you bring clarity and composure that everyone relies upon. When meetings stretch long, your wit and good humor lift the spirits of the whole room.",
+    "Your hard work, quiet support, and natural kindness never go unnoticed. Today, we celebrate not just what you accomplish, but the wonderful person you are every single day.",
+  ] as string[],
+
+  // --- Memories ---
+  memoriesEyebrow: "Looking ahead",
+  memoriesTitle: "More Milestones & Memories Ahead",
+  memoriesSubtitle: "Exciting goals, shared wins, and wonderful celebrations on the horizon.",
+  memoryItems: [
+    "More hackathons and tech wins that make everyone proud.",
+    "More spontaneous campus hangouts and celebratory coffee breaks.",
+    "More team presentations that turn out to be effortless triumphs.",
+    "More celebrations where we remind you how much your contributions matter.",
+    "More fun memories, successful projects, and milestones to achieve together.",
+  ] as string[],
+
+  // --- Album Rail ---
+  albumRailEyebrow: "Festive Vibe & Soundtrack",
+  albumRailTitle: "Yogeshwari's Album Rail",
+  albumRailSubtitle: "A fan of album sleeves with records tucked inside. Tap any record to slide out and play.",
+  albumRailTracks: [
+    {
+      id: "track-1",
+      title: "Kho Gaye Hum Kahan",
+      artist: "Special Dedication For Yogeshwari",
+      coverSrc: "/photos/track-yogi-cafe.jpeg",
+      audioSrc: "/songs/track1.mp3",
+    },
+    {
+      id: "track-2",
+      title: "Ilahi",
+      artist: "Birthday Vibes",
+      coverSrc: "/photos/track-trio-fists.jpeg",
+      audioSrc: "/songs/track2.mp3",
+    },
+    {
+      id: "track-3",
+      title: "Under The Warm Bulbs",
+      artist: "The Core Trio",
+      coverSrc: "/photos/track-trio-lights.jpeg",
+      audioSrc: "/songs/track3.mp3",
+    },
+    {
+      id: "track-4",
+      title: "Trophies & Certifications",
+      artist: "GDG Champs",
+      coverSrc: "/photos/track-gdg-trophy.jpeg",
+      audioSrc: "/songs/track4.mp3",
+    },
+    {
+      id: "track-5",
+      title: "Midnight Campus Talks",
+      artist: "The Whole Gang",
+      coverSrc: "/photos/track-night-squad.jpeg",
+      audioSrc: "/songs/track5.mp3",
+    },
+  ] as AlbumTrack[],
+
+  // --- Wishes ---
+  wishesEyebrow: "For you, Yogeshwari",
+  wishesTitle: "All the Good Things, Always.",
+  wishesIntro: "A few heartfelt wishes for an incredible year ahead:",
+  wishes: [
+    "May this year unlock fantastic career breakthroughs and prestigious opportunities.",
+    "May your technical projects and innovative ideas gain the widespread acclaim they deserve.",
+    "May every exam, interview, and competition turn into a resounding success.",
+    "May you always retain your bright smile, keen sense of humor, and generous spirit.",
+    "May your days be filled with peaceful evenings, hearty laughter, and supportive people.",
+    "Wishing you endless happiness, good health, and glorious achievements ahead!",
+  ] as string[],
+
+  // --- Birthday Cake ---
+  cakeEyebrow: "A Birthday Tradition",
+  cakeTitle: "Make a Wish & Blow the Candle! 🎂",
+  cakeSubtitle: "Close your eyes, make a silent wish from your heart, and tap the candle or press the button below to blow it out.",
+
+  // --- Surprise ---
+  surpriseEyebrow: "A celebratory note",
+  surpriseTitle: "A Dose of Yogeshwari Appreciation",
+  surpriseLede: "A few well-deserved compliments for an outstanding person.",
+  hugMessage: "Warmest birthday wishes and cheers sent to Yogeshwari! 🎉🤗",
+  secretButtonLabel: "One more compliment…",
+  secretMessage:
+    "You are an invaluable member of the team and a brilliant friend to everyone. We are thrilled to celebrate you on your special day. Happy Birthday, Yogeshwari! 🌟",
+  sweetLines: [
+    "Master of PPTs, code prototypes, and keeping team spirits soaring.",
+    "Sharp technical logic paired with natural comedic timing.",
+    "Consistently delivering excellence while remaining modest and grounded.",
+    "A true all-rounder who makes collaboration smooth and enjoyable.",
+    "Yogeshwari, take a bow today — you've earned every bit of celebration!",
+  ] as string[],
+
+  // --- Closing ---
+  closingTitle: "Happy Birthday, Yogeshwari!",
+  closingParagraph:
+    "Thank you for being such an inspiring, hardworking, and joyful person. May this milestone year bring you grand opportunities, beautiful memories, and all the success in the world.",
+  closingPhoto: {
+    src: "/photos/closing-grand-squad.jpeg",
+    alt: "Celebration group photo outside illuminated building",
+    caption: "",
+  } as Photo,
+  replayLabel: "Watch the celebration again",
+
+  // --- Background music ---
+  songUrl: "/songs/Theme Stars - Happy Birthday to You (Whistle Snap).mp3" as string,
+  songTitle: "Happy Birthday to You (Whistle Snap)" as string,
+};
+
 export type Content = typeof content;
